@@ -1,0 +1,101 @@
+.background-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-image: url("../Images/bg.png");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+/* Стили для контейнера с постами */
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto; /* Центрируем */
+    margin-top: 40px; /* Добавляем отступ сверху */
+}
+
+/* Стили для каждой карточки поста */
+.post-card {
+    width: 869px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 869px;
+    margin: 10px auto; /* Центрируем карточки */
+    backdrop-filter: blur(100px);
+    border: 2px solid rgba(255, 255, 255, .2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16;
+    padding: 24px;
+}
+
+/* Стили для заголовков постов */
+.post-card h3 {
+    margin: 0;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+}
+
+/* Стили для текста постов */
+.post-card p {
+    margin: 8px 0;
+    color: #ffffff;
+    font-size: 16px; /* Уменьшаем размер текста для лучшей читаемости */
+}
+
+/* Стили для даты */
+.post-card span {
+    font-size: 12px;
+    color: #808080;
+}
+.post-meta {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.post-meta .author,
+.post-meta .date {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-user-info .author {
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.post-user-info .date {
+  font-size: 12px;
+  color: #ffffff;
+}

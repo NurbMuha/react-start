@@ -1,0 +1,134 @@
+import React, { useState, useEffect } from 'react';
+import PostCard from '../Components/PostCard';
+import TabBar from '../Components/TabBar';
+import { AuthContext } from '../App';
+import "../Styles/Home.css";
+
+export default function Home() {
+  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const { user } = React.useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const postsResponse = await fetch("http://localhost:3001/posts");
+        const postsData = await postsResponse.json();
+        setPosts(postsData);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    const fetchUsers = async () => {
+      try {
+        const usersResponse = await fetch("http://localhost:3001/users");
+        const usersData = await usersResponse.json();
+        setUsers(usersData);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    const fetchLikes = async () => {
+      try {
+        const likesResponse = await fetch("http://localhost:3001/likes");
+        const likesData = await likesResponse.json();
+        setLikes(likesData);
+      } catch (error) {
+        console.error("Error fetching likes:", error);
+      }
+    };
+
+    fetchPosts();
+    fetchUsers();
+    fetchLikes();
+  }, []);
+
+  const handleLikePost = async (postId) => {
+  
+
+    const existingLike = likes.find(like => like.userId === user.id && like.post_id === postId);
+
+    if (existingLike) {
+      try {
+        const response = await fetch(`http://localhost:3001/likes/${existingLike.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to delete like for post with id ${postId}`);
+        }
+        setLikes(likes.filter(like => like.id !== existingLike.id));
+      } catch (error) {
+        console.error("Error deleting like:", error);
+      }
+    } else {
+      
+      const newLike = {
+        userId: user.id,
+        post_id: postId,
+      };
+
+      try {
+        const response = await fetch('http://localhost:3001/likes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newLike),
+        });
+
+        if (response.ok) {
+          const savedLike = await response.json();
+          setLikes([...likes, savedLike]);
+        } else {
+          console.error("Failed to add like");
+        }
+      } catch (error) {
+        console.error("Error adding like:", error);
+      }
+    }
+  };
+
+  const getLikeCount = (postId) => {
+    return likes.filter(like => like.post_id === postId).length;
+  };
+
+  return (
+    <div className="background-container">
+      <TabBar />
+      <div className="posts-container">
+        {posts.map(post => {
+          const matchedUser = users.find(user => user.id === post.userId);
+          const likeCount = getLikeCount(post.id);
+
+          return (
+            <div key={post.id}>
+              <PostCard
+                post={post}
+                author={matchedUser ? matchedUser.username : "Unknown"}
+                date={post.created_at}
+                onDelete={() => console.log("Delete post", post.id)}
+                onEdit={() => console.log("Edit post", post.id)}
+                onLike={() => handleLikePost(post.id)}
+              />
+              <div className="like-container">
+                <button onClick={() => handleLikePost(post.id)}>
+                  {likes.some(like => like.userId === user?.id && like.post_id === post.id) ? <i class="fa-solid fa-heart"></i> :  <i class="fa-regular fa-heart"></i>}
+                </button>
+                <span>{likeCount} Likes</span>
+              </div>
+              {user && user.role === "moderator" && (
+                <button onClick={() => console.log("Delete post", post.id)}>Delete</button>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
