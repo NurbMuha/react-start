@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PostCard from '../Components/PostCard';
 import TabBar from '../Components/TabBar';
-import { AuthContext } from '../App';
 import "../Styles/Home.css";
 import Modal from '../Modal/Modal';
+import { useSelector } from "react-redux";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [likes, setLikes] = useState([]);
-  const { user } = React.useContext(AuthContext);
+  const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -48,8 +48,11 @@ export default function Home() {
   }, []);
 
   const handleLikePost = async (postId) => {
-  
-
+    console.log("Клик по лайку для поста:", postId);
+    if (!user || !user.id) {
+      console.warn("Нельзя поставить лайк: пользователь не авторизован");
+      return;
+    }
     const existingLike = likes.find(like => like.userId === user.id && like.post_id === postId);
 
     if (existingLike) {
@@ -102,7 +105,7 @@ export default function Home() {
   return (
     <div className="background-container">
       <TabBar />
-      
+
       <div className="posts-container">
         {posts.map(post => {
           const matchedUser = users.find(user => user.id === post.userId);
@@ -119,8 +122,8 @@ export default function Home() {
                 onLike={() => handleLikePost(post.id)}
               />
               <div className="like-container">
-                <button onClick={() => handleLikePost(post.id)}>
-                  {likes.some(like => like.userId === user?.id && like.post_id === post.id) ? <i class="fa-solid fa-heart"></i> :  <i class="fa-regular fa-heart"></i>}
+                <button type="button" onClick={() => handleLikePost(post.id)}>
+                  {likes.some(like => like.userId === user?.id && like.post_id === post.id) ? <i className="fa-solid fa-heart"></i> :  <i className="fa-regular fa-heart"></i>}
                 </button>
                 <span>{likeCount} Likes</span>
               </div>

@@ -8,6 +8,7 @@ import Profile from "./Pages/Profile";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 
+
 export const AuthContext = React.createContext();
 
 function App() {

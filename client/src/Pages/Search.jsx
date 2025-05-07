@@ -7,7 +7,7 @@ import PostCard from '../Components/PostCard';
 function Search () {
     const [posts, setPosts] = useState([]);
     const [users, setUsers] = useState([]);
-    const [content, setContent] = useState('');
+    const [editedContent, setEditedContent] = useState({});
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -40,6 +40,7 @@ function Search () {
       <div className="posts-container">
 {posts.map(post => {
   const matchedUser = users.find(user => user.id === post.userId);
+  const currentContent = editedContent[post.id] || '';
 
   return (
     <div key={post.id}>
@@ -56,7 +57,7 @@ function Search () {
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ content }), 
+              body: JSON.stringify({ content: currentContent }), 
             });
             if (response.ok) {
               const updatedPost = await response.json();
@@ -74,8 +75,8 @@ function Search () {
       <label>
         Content:
         <input
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
+          value={currentContent}
+          onChange={(e) => setEditedContent({ ...editedContent, [post.id]: e.target.value })}
           placeholder="Edit content here"
         />
       </label>

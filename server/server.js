@@ -100,6 +100,21 @@ app.post('/posts', (req, res) => {
   res.status(201).json(post);
 });
 
+// PATCH /posts/:id
+app.patch('/posts/:id', (req, res) => {
+  const { id } = req.params;
+  const { content } = req.body;
+
+  const post = posts.find(p => p.id === id);
+  if (!post) {
+    return res.status(404).json({ error: 'Post not found' });
+  }
+
+  post.content = content ?? post.content;
+
+  res.json(post);
+});
+
 // Likes
 app.get('/likes', (req, res) => res.json(likes));
 app.post('/likes', (req, res) => {
@@ -114,4 +129,4 @@ app.delete('/likes/:id', (req, res) => {
 });
 
 // Запуск сервера
-app.listen(3001, () => console.log('✅ Express API запущен на http://localhost:5001'));
+app.listen(3001, () => console.log('✅ Express API запущен на http://localhost:3001'));
