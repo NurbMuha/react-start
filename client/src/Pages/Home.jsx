@@ -3,6 +3,7 @@ import PostCard from '../Components/PostCard';
 import TabBar from '../Components/TabBar';
 import { AuthContext } from '../App';
 import "../Styles/Home.css";
+import Modal from '../Modal/Modal';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -101,6 +102,7 @@ export default function Home() {
   return (
     <div className="background-container">
       <TabBar />
+      
       <div className="posts-container">
         {posts.map(post => {
           const matchedUser = users.find(user => user.id === post.userId);
