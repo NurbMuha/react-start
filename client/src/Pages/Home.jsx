@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PostCard from '../Components/PostCard';
 import TabBar from '../Components/TabBar';
 import "../Styles/Home.css";
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/Notification';
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -111,27 +113,46 @@ export default function Home() {
           const matchedUser = users.find(user => user.id === post.userId);
           const likeCount = getLikeCount(post.id);
 
-          return (
+            return (
             <div key={post.id}>
               <PostCard
-                post={post}
-                author={matchedUser ? matchedUser.username : "Unknown"}
-                date={post.created_at}
-                onDelete={() => console.log("Delete post", post.id)}
-                onEdit={() => console.log("Edit post", post.id)}
-                onLike={() => handleLikePost(post.id)}
+              post={post}
+              author={matchedUser ? matchedUser.username : "Unknown"}
+              date={post.created_at}
+              onDelete={() => {
+                console.log("Delete post", post.id);
+                toast.success("Post deleted successfully!");
+              }}
+              onEdit={() => console.log("Edit post", post.id)}
+              onLike={() => {
+                handleLikePost(post.id);
+                toast.success("Post liked successfully!");
+              }}
               />
               <div className="like-container">
-                <button type="button" onClick={() => handleLikePost(post.id)}>
-                  {likes.some(like => like.userId === user?.id && like.post_id === post.id) ? <i className="fa-solid fa-heart"></i> :  <i className="fa-regular fa-heart"></i>}
-                </button>
-                <span>{likeCount} Likes</span>
+              <button
+                type="button"
+                onClick={() => {
+                handleLikePost(post.id);
+                toast.success("Post liked successfully!");
+                }}
+              >
+                {likes.some(like => like.userId === user?.id && like.post_id === post.id) ? <i className="fa-solid fa-heart"></i> :  <i className="fa-regular fa-heart"></i>}
+              </button>
+              <span>{likeCount} Likes</span>
               </div>
               {user && user.role === "moderator" && (
-                <button onClick={() => console.log("Delete post", post.id)}>Delete</button>
+              <button
+                onClick={() => {
+                console.log("Delete post", post.id);
+                toast.success("Post deleted successfully!");
+                }}
+              >
+                Delete
+              </button>
               )}
             </div>
-          );
+            );
         })}
       </div>
     </div>

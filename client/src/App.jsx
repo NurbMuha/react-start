@@ -7,11 +7,13 @@ import Chats from "./Pages/Chats";
 import Profile from "./Pages/Profile";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
+import { ToastContainer, toast } from 'react-toastify';
 
 
 export const AuthContext = React.createContext();
 
 function App() {
+  const notify = () => toast("Wow so easy!");
   const [user, setUser] = React.useState(null); 
 
   function login(userData) {
@@ -21,40 +23,43 @@ function App() {
     setUser(null);
   }
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/home" 
-            element={user && user.role === null ? <Navigate to="/profile" /> : <Home />}
-          />
-          <Route
-            path="/search"
-            element={user && (user.role === null || user.role !== "moderator") ? <Navigate to="/profile" /> : <Search />}
-          />
-          <Route
-            path="/add-post"
-            element={user && user.role === null ? <Navigate to="/profile" /> : user ? <AddPost /> : <Navigate to="/profile" />}
-          />
-          <Route
-            path="/chats"
-            element={user && (user.role === null || user.role !== "admin") ? <Navigate to="/profile" /> : <Chats />}
-          />
-          <Route
-            path="/profile"
-            element={<Profile />}
-          />
-          <Route
-            path="/login"
-            element={<Login />}
-          />
-          <Route
-            path="/signup"
-            element={<SignUp />}
-          />
-        </Routes>
-      </BrowserRouter>
-    </AuthContext.Provider>
+    <>
+      <ToastContainer />
+      <AuthContext.Provider value={{ user, login, logout }}>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/home" 
+              element={user && user.role === null ? <Navigate to="/profile" /> : <Home />}
+            />
+            <Route
+              path="/search"
+              element={user && (user.role === null || user.role !== "moderator") ? <Navigate to="/profile" /> : <Search />}
+            />
+            <Route
+              path="/add-post"
+              element={user && user.role === null ? <Navigate to="/profile" /> : user ? <AddPost /> : <Navigate to="/profile" />}
+            />
+            <Route
+              path="/chats"
+              element={user && (user.role === null || user.role !== "admin") ? <Navigate to="/profile" /> : <Chats />}
+            />
+            <Route
+              path="/profile"
+              element={<Profile />}
+            />
+            <Route
+              path="/login"
+              element={<Login />}
+            />
+            <Route
+              path="/signup"
+              element={<SignUp />}
+            />
+          </Routes>
+        </BrowserRouter>
+      </AuthContext.Provider>
+    </>
   );
 }
 
