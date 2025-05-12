@@ -115,6 +115,30 @@ app.patch('/posts/:id', (req, res) => {
   res.json(post);
 });
 
+// Login endpoint
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  const user = users.find(u => u.email === email && u.password === password);
+  if (!user) {
+    return res.status(401).json({ error: 'Invalid email or password' });
+  }
+
+  res.json({ id: user.id, username: user.username, email: user.email, role: user.role });
+});
+
+app.delete('/posts/:id', (req, res) => {
+  const { id } = req.params;
+  const postIndex = posts.findIndex(post => post.id === id);
+
+  if (postIndex === -1) {
+    return res.status(404).json({ error: 'Post not found' });
+  }
+
+  posts.splice(postIndex, 1); // Удаляем пост из массива
+  res.status(204).end(); // Возвращаем успешный статус без содержимого
+});
+
 // Likes
 app.get('/likes', (req, res) => res.json(likes));
 app.post('/likes', (req, res) => {

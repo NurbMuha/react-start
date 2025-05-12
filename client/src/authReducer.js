@@ -1,19 +1,20 @@
+// authReducer.js
 const initialState = {
-    user: JSON. parse(localStorage.getItem("user")) || null,
+  user: JSON.parse(localStorage.getItem("user")) || null, // Получаем из localStorage
 };
 
-
 function authReducer(state = initialState, action) {
-    switch (action.type) {
-        case 'LOGIN':
-            localStorage.setItem("user", JSON.stringify(action.payload));
-            return { ...state, user: action.payload };
-        case 'LOGOUT':
-            localStorage.removeItem("user");
-            return { ...state, user: null };
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case 'LOGIN':
+      localStorage.setItem("user", JSON.stringify(action.payload));
+      return { ...state, user: action.payload };
+    case 'LOGOUT':
+      localStorage.removeItem("user");
+      return { ...state, user: null };
+      console.log("LOGOUT action triggered");
+    default:
+      return state;
+  }
 }
 
 export default authReducer;

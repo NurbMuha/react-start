@@ -26,15 +26,24 @@ function Login() {
 
   async function handleLogin(e) {
     e.preventDefault();
-    const response = await fetch(`http://localhost:3001/users?email=${email}&password=${password}`);
-    const data = await response.json();
-    if (data.length > 0) {
-      // Dispatch для сохранения данных пользователя в Redux
-      dispatch(login(data[0]));  // Отправляем экшен login с данными пользователя
-      showNotification("Регистрация успешна!", 'success');
-      setTimeout(() => navigate('/home'), 500);
-    } else {
-      alert("Invalid credentials");
+    try {
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        // Dispatch для сохранения данных пользователя в Redux
+        dispatch(login(data)); // Отправляем экшен login с данными пользователя
+        showNotification("Login successful!", 'success');
+        setTimeout(() => navigate('/home'), 500);
+      } else {
+        toast.error(data.error || "Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An error occurred during login");
     }
   }
 

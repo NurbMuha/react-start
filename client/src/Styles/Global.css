@@ -1,10 +1,12 @@
 .background-container {
-    position: fixed;
+    position: relative; /* Изменяем на relative, чтобы позволить прокрутку */
     width: 100%;
-    height: 100%;
+    min-height: 100vh; /* Устанавливаем минимальную высоту для прокрутки */
     display: flex;
+    flex-direction: column; /* Вертикальное расположение элементов */
     background-image: url("../Images/bg.png");
     background-size: cover;
     background-position: center;
-    overflow: hidden;
-  }
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+}

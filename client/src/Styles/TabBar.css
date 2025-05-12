@@ -1,6 +1,6 @@
 .tab-bar {
   font-family: 'SF Pro', sans-serif;
-  position: absolute;
+  position: fixed;
   left: 24px; 
   top: 25%;
   display: flex;
