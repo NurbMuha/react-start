@@ -16,40 +16,46 @@ function TabBar() {
 
     return (
       <div className="tab-bar">
+      <div className="tab-item">
+        <Link to="/home">
+        <i className="fas fa-home"></i>
+        <span>Home</span>
+        </Link>
+      </div>
+      {user && (
+        <>
         <div className="tab-item">
-          <Link to="/home">
-            <i className="fas fa-home"></i>
-            <span>Home</span>
+          <Link to="/search">
+          <i className="fas fa-edit"></i>
+          <span>Edit Posts</span>
           </Link>
         </div>
-        {user && (
-          <>
-            <div className="tab-item">
-              <Link to="/search">
-                <i className="fas fa-edit"></i>
-                <span>Edit Posts</span>
-              </Link>
-            </div>
-            <div className="tab-item">
-              <Link to="/add-post">
-                <i className="fas fa-square-plus"></i>
-                <span>Add Post</span>
-              </Link>
-            </div>
-            <div className="tab-item">
-              <Link to="/chats">
-                <i className="fas fa-ban"></i>
-                <span>Manage Users</span>
-              </Link>
-            </div>
-          </>
-        )}
-        <div className="tab-item" onClick={handleLogout}>
-          <Link to="/login">
-            <i className="fas fa-user"></i>
-            <span>Profile</span>
+        <div className="tab-item">
+          <Link to="/add-post">
+          <i className="fas fa-square-plus"></i>
+          <span>Add Post</span>
           </Link>
         </div>
+        <div className="tab-item">
+          <Link to="/chats">
+          <i className="fas fa-comments"></i>
+          <span>Chats</span>
+          </Link>
+        </div>
+        <div className="tab-item">
+          <Link to="/manage-users">
+          <i className="fas fa-ban"></i>
+          <span>Manage Users</span>
+          </Link>
+        </div>
+        </>
+      )}
+      <div className="tab-item" onClick={handleLogout}>
+        <Link to="/login">
+        <i className="fas fa-user"></i>
+        <span>Profile</span>
+        </Link>
+      </div>
       </div>
     );
 }
