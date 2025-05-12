@@ -37,6 +37,26 @@ function ManageUsers() {
         .catch(error => console.error('Error banning user:', error));
     };
 
+    const resetPassword = (userId) => {
+        fetch(`http://localhost:3001/users/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password: "12345678" }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to reset password');
+            }
+            return response.json();
+        })
+        .then(() => {
+            fetchUsers(); // Обновляем список пользователей
+        })
+        .catch(error => console.error('Error resetting password:', error));
+    };
+
     return (
         <div className="background-container">
             <TabBar />
@@ -47,6 +67,7 @@ function ManageUsers() {
                         <li key={user.id}>
                             {user.username} - status: {user.role || 'Banned'}
                             <button onClick={() => banUser(user.id)}>Ban</button>
+                            <button onClick={() => resetPassword(user.id)}>Reset Password</button>
                         </li>
                     ))}
                 </ul>

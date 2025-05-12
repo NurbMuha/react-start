@@ -23,10 +23,34 @@ app.use('/uploads', express.static('uploads')); // чтобы раздавать
 
 // Users
 let users = [
-  { id: "1", username: "alice", email: "alice@mail.com", password: "12345678", role: "admin" },
-  { id: "2", username: "bob", email: "bob@mail.com", password: "12345678", role: "moderator" },
-  { id: "3", username: "charlie", email: "charlie@mail.com", password: "12345678", role: "user" },
-  { id: "b66c", email: "nurb_muha@icloud.com", username: "nurbol", password: "12345678", role: "ban" }
+  {
+    id: "1",
+    username: "alice",
+    email: "alice@mail.com",
+    password: "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", // hash "12345678"
+    role: "admin"
+  },
+  {
+    id: "2",
+    username: "bob",
+    email: "bob@mail.com",
+    password: "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", // hash "12345678"
+    role: "moderator"
+  },
+  {
+    id: "3",
+    username: "charlie",
+    email: "charlie@mail.com",
+    password: "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", // hash "12345678"
+    role: "user"
+  },
+  {
+    id: "b66c",
+    email: "nurb_muha@icloud.com",
+    username: "nurbol",
+    password: "fb19905a7e637dffcf69e425c8e860e06b33f0e660d4a84b399f8a1a3f2b6703", // hash "12345677"
+    role: "ban"
+  }
 ];
 
 // Posts
