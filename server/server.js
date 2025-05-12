@@ -5,6 +5,21 @@ const { v4: uuid } = require('uuid');
 const app = express();
 app.use(cors());
 app.use(express.json());
+const multer = require('multer');
+const path = require('path');
+
+// Хранилище для файлов
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // папка должна существовать
+  },
+  filename: function (req, file, cb) {
+    cb(null, uuid() + path.extname(file.originalname)); // уникальное имя
+  }
+});
+
+const upload = multer({ storage });
+app.use('/uploads', express.static('uploads')); // чтобы раздавать изображения
 
 // Users
 let users = [
@@ -63,8 +78,18 @@ app.get('/users', (req, res) => res.json(users));
 
 // Posts
 app.get('/posts', (req, res) => res.json(posts));
-app.post('/posts', (req, res) => {
-  const post = { id: uuid(), ...req.body, created_at: new Date().toISOString() };
+app.post('/posts', upload.single('media'), (req, res) => {
+  const { content, userId } = req.body;
+  const mediaPath = req.file ? `/uploads/${req.file.filename}` : null;
+
+  const post = {
+    id: uuid(),
+    content,
+    userId,
+    mediaPath,
+    created_at: new Date().toISOString()
+  };
+
   posts.push(post);
   res.status(201).json(post);
 });

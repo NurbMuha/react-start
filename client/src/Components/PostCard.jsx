@@ -13,6 +13,9 @@ export default function PostCard({ post, author, date }) {
         </div>
       </div>
       <p>{post.content}</p>
+      {post.mediaPath && (
+        <img src={`http://localhost:3001${post.mediaPath}`} alt="attached media" className="post-image post-card-image" />
+      )}
     </div>
   );
 }

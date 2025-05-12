@@ -10,6 +10,7 @@ function AddPost() {
     const user = useSelector((state) => state.auth.user); // Получаем пользователя из Redux
     const navigate = useNavigate();
     const [content, setContent] = useState('');
+    const [media, setMedia] = useState(null);
 
     const handleAddPost = async () => {
         if (!content) {
@@ -17,19 +18,18 @@ function AddPost() {
             return;
         }
 
-        const newPost = {
-            userId: user.id,
-            content,
-            created_at: new Date().toISOString(),
-        };
+        const formData = new FormData();
+        formData.append('userId', user.id);
+        formData.append('content', content);
+        formData.append('created_at', new Date().toISOString());
+        if (media) {
+            formData.append('media', media);
+        }
 
         try {
             const response = await fetch('http://localhost:3001/posts', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newPost),
+                body: formData,
             });
 
             if (response.ok) {
@@ -57,6 +57,9 @@ function AddPost() {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                     />
+                </div>
+                <div className="add-post-file">
+                    <input type="file" onChange={(e) => setMedia(e.target.files[0])} />
                 </div>
                 <div className="add-post-button">
                     <button onClick={handleAddPost}>Add Post</button>
