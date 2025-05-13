@@ -27,36 +27,35 @@ let users = [
     id: "1",
     username: "alice",
     email: "alice@mail.com",
-    password: "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", // hash "12345678"
+    password: "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", 
     role: "admin"
   },
   {
     id: "2",
     username: "bob",
     email: "bob@mail.com",
-    password: "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", // hash "12345678"
+    password: "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", 
     role: "moderator"
   },
   {
     id: "3",
     username: "charlie",
     email: "charlie@mail.com",
-    password: "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", // hash "12345678"
-    role: "user"
+    password: "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f", 
   },
   {
     id: "b66c",
     email: "nurb_muha@icloud.com",
     username: "nurbol",
-    password: "fb19905a7e637dffcf69e425c8e860e06b33f0e660d4a84b399f8a1a3f2b6703", // hash "12345677"
+    password: "fb19905a7e637dffcf69e425c8e860e06b33f0e660d4a84b399f8a1a3f2b6703", 
     role: "ban"
   }
 ];
 
 // Posts
 let posts = [
-  { id: "1", title: "Updated Title", content: "cock", userId: "1", created_at: "2025-04-10" },
-  { id: "2", userId: "2", content: "no its not you suck", created_at: "2025-04-11" },
+  { id: "1", title: "Updated Title", content: "gg", userId: "1", created_at: "2025-04-10" },
+  { id: "2", userId: "2", content: "fsfwfe", created_at: "2025-04-11" },
   { id: "3", userId: "3", content: "I'm joining the chat now.", created_at: "2025-04-12" },
   { id: "867d", userId: "b66c", content: "new post", created_at: "2025-04-17T09:19:03.806Z" }
 ];
@@ -186,6 +185,7 @@ app.post('/login', (req, res) => {
   res.json({ id: user.id, username: user.username, email: user.email, role: user.role });
 });
 
+// Update user
 app.patch('/users/:id', (req, res) => {
   const { id } = req.params;
   const { role } = req.body;
@@ -196,11 +196,8 @@ app.patch('/users/:id', (req, res) => {
   }
 
   user.role = role; // Обновляем роль пользователя
-  saveUsersToFile(); // Сохраняем изменения в файл
   res.json(user); // Возвращаем обновленного пользователя
 });
-
-
 
 // Запуск сервера
 app.listen(3001, () => console.log('✅ Express API запущен на http://localhost:3001'));
