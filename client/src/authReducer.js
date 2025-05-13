@@ -1,6 +1,5 @@
-// authReducer.js
 const initialState = {
-  user: JSON.parse(localStorage.getItem("user")) || null, // Получаем из localStorage
+  user: JSON.parse(localStorage.getItem("user")) || null, 
 };
 
 function authReducer(state = initialState, action) {

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../authReducer";  // Импортируем экшен login
+import { login } from "../authReducer";  
 import { toast } from "react-toastify";
 import Notification from "../Modal/Notification";
-import "react-toastify/dist/ReactToastify.css";
+import "../Styles/Login.css";  
 
 function Login() {
   const dispatch = useDispatch();
@@ -34,8 +34,7 @@ function Login() {
       });
       const data = await response.json();
       if (response.ok) {
-        // Dispatch для сохранения данных пользователя в Redux
-        dispatch(login(data)); // Отправляем экшен login с данными пользователя
+        dispatch(login(data)); 
         showNotification("Login successful!", 'success');
         setTimeout(() => navigate('/home'), 500);
       } else {
@@ -50,19 +49,29 @@ function Login() {
   return (
     <div className="login-page">
       <Notification />
-      <h1>Login</h1>
-      <form
-        onSubmit={(e) => {
-          handleLogin(e).then(() => {
-            toast.success("Login successful!");
-          });
-        }}
-      >
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <button type="submit">Login</button>
+      <h1 className="login-header">Login</h1>
+      <form className="login-form" onSubmit={(e) => handleLogin(e)}>
+        <input
+          type="email"
+          className="login-input"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          className="login-input"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit" className="login-button">Login</button>
       </form>
-      <button onClick={() => navigate("/signup")}>Sign Up</button>
+      <button type="button" className="signup-button" onClick={() => navigate("/signup")}>
+        Sign Up
+      </button>
     </div>
   );
 }

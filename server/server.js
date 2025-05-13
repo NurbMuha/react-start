@@ -7,21 +7,19 @@ app.use(cors());
 app.use(express.json());
 const multer = require('multer');
 const path = require('path');
-
-// Хранилище для файлов
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // папка должна существовать
+    cb(null, 'uploads/'); 
   },
   filename: function (req, file, cb) {
-    cb(null, uuid() + path.extname(file.originalname)); // уникальное имя
+    cb(null, uuid() + path.extname(file.originalname)); 
   }
 });
 
 const upload = multer({ storage });
-app.use('/uploads', express.static('uploads')); // чтобы раздавать изображения
+app.use('/uploads', express.static('uploads'));
 
-// Users
+
 let users = [
   {
     id: "1",
@@ -52,7 +50,7 @@ let users = [
   }
 ];
 
-// Posts
+
 let posts = [
   { id: "1", title: "Updated Title", content: "gg", userId: "1", created_at: "2025-04-10" },
   { id: "2", userId: "2", content: "fsfwfe", created_at: "2025-04-11" },
@@ -60,7 +58,7 @@ let posts = [
   { id: "867d", userId: "b66c", content: "new post", created_at: "2025-04-17T09:19:03.806Z" }
 ];
 
-// Likes
+
 let likes = [
   { id: "9e86", userId: "3", post_id: "2" },
   { id: "cb9e", userId: "1", post_id: "2" },
@@ -68,13 +66,10 @@ let likes = [
   { id: "4941", userId: "2", post_id: "1" }
 ];
 
-// Conversations
 let conversations = [];
-
-// Messages
 let messages = [];
 
-// Генерация бесед для каждого пользователя с каждым другим пользователем
+
 const generateConversations = () => {
   for (let i = 0; i < users.length; i++) {
     for (let j = i + 1; j < users.length; j++) {
@@ -84,7 +79,7 @@ const generateConversations = () => {
       const newConversation = {
         id: uuid(),
         participants: [user1.id, user2.id],
-        participantNames: [user1.username, user2.username], // Добавляем имена участников
+        participantNames: [user1.username, user2.username], 
         created_at: new Date().toISOString()
       };
 
@@ -93,13 +88,12 @@ const generateConversations = () => {
   }
 };
 
-// Генерируем беседы при запуске сервера
+
 generateConversations();
 
-// Users
 app.get('/users', (req, res) => res.json(users));
 
-// Posts
+
 app.get('/posts', (req, res) => res.json(posts));
 app.post('/posts', upload.single('media'), (req, res) => {
   const { content, userId } = req.body;
@@ -132,7 +126,7 @@ app.delete('/posts/:id', (req, res) => {
   res.status(204).end();
 });
 
-// Likes
+
 app.get('/likes', (req, res) => res.json(likes));
 app.post('/likes', (req, res) => {
   const like = { id: uuid(), ...req.body };
@@ -145,7 +139,7 @@ app.delete('/likes/:id', (req, res) => {
   res.status(204).end();
 });
 
-// Conversations
+
 app.get('/conversations/:userId', (req, res) => {
   const { userId } = req.params;
   const userConversations = conversations.filter(convo => convo.participants.includes(userId));
@@ -161,7 +155,7 @@ app.post('/conversations', (req, res) => {
   res.status(201).json(newConversation);
 });
 
-// Messages
+
 app.get('/messages/:conversationId', (req, res) => {
   const { conversationId } = req.params;
   const conversationMessages = messages.filter(msg => msg.conversation_id === conversationId);
@@ -177,7 +171,7 @@ app.post('/messages', (req, res) => {
   res.status(201).json(newMessage);
 });
 
-// Login endpoint
+
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
   const user = users.find(u => u.email === email && u.password === password);
@@ -185,7 +179,6 @@ app.post('/login', (req, res) => {
   res.json({ id: user.id, username: user.username, email: user.email, role: user.role });
 });
 
-// Update user
 app.patch('/users/:id', (req, res) => {
   const { id } = req.params;
   const { role } = req.body;
@@ -195,9 +188,9 @@ app.patch('/users/:id', (req, res) => {
     return res.status(404).json({ error: 'User not found' });
   }
 
-  user.role = role; // Обновляем роль пользователя
-  res.json(user); // Возвращаем обновленного пользователя
+  user.role = role; 
+  res.json(user); 
 });
 
-// Запуск сервера
+
 app.listen(3001, () => console.log('✅ Express API запущен на http://localhost:3001'));

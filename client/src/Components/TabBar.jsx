@@ -1,16 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../authReducer"; // Импортируем экшен
+import { logout } from "../authReducer";
 import "../Styles/TabBar.css"; 
 
 function TabBar() {
-    const user = useSelector((state) => state.auth.user); // Получаем данные пользователя из Redux
+    const user = useSelector((state) => state.auth.user); 
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-    dispatch(logout()); // Вызов экшена для логаута
-    localStorage.removeItem("user"); // Убедитесь, что localStorage очищается
+    dispatch(logout()); 
+    localStorage.removeItem("user"); 
     console.log("Logout initiated");
 };
 

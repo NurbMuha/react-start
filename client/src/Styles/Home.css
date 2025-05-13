@@ -119,3 +119,79 @@ html, body {
     border-radius: 8px;
     margin-top: 10px;
 }
+/* Home.css */
+.like-container {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Adjust the gap between the buttons */
+  margin-top: 10px;
+  justify-content: flex-start; /* Ensures buttons stay in one row */
+}
+
+.like-container button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.like-container span {
+  font-size: 1rem;
+  color: white;
+}
+
+.delete-container {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Adjust gap if needed */
+  justify-content: flex-start; /* Ensures buttons stay in one row */
+}
+
+.delete-button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+/* Edit icon style */
+button i {
+  font-size: 1.5rem;
+}
+
+/* Hover effect on buttons */
+button:hover {
+  color: #1e73be;
+}
+
+/* Active effect on buttons */
+button:active {
+  color: #155a8a;
+}
+/* Button style for the edit button */
+button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-top: 10px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

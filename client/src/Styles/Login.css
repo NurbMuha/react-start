@@ -1,0 +1,92 @@
+/* Login.css */
+.login-page {
+  background: linear-gradient(to bottom right, #1e3c72, #2a5298); /* Blue gradient */
+  color: white;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  position: relative;
+}
+
+.login-header {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.login-form {
+  background-color: rgba(0, 0, 0, 0.6); /* Slightly transparent background */
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #2b3a4e;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.login-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.login-button {
+  padding: 15px;
+  background-color: #1e73be;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.login-button:hover {
+  background-color: #155a8a;
+}
+
+.login-button:active {
+  background-color: #104c72;
+}
+
+.signup-button {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.signup-button:hover {
+  background-color: #1e73be;
+  border-color: #1e73be;
+}
+
+.signup-button:active {
+  background-color: #155a8a;
+}
+
+.notification-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}

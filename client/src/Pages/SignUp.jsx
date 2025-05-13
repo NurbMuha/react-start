@@ -3,6 +3,7 @@ import TabBar from '../Components/TabBar';
 import { useNavigate } from 'react-router-dom';
 import '../Styles/Global.css'; 
 import { useState } from 'react';
+import '../Styles/SignUp.css'; 
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -97,7 +98,7 @@ export default function SignUp() {
                 <button type="submit">Sign Up</button>
                 <button onClick={() => navigate("/login")}>Back</button>
             </form>
-            <TabBar />
+
         </div>
     );
 }

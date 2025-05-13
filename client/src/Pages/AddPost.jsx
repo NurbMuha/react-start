@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux'; // Импортируем useSelector
-import { toast } from 'react-toastify'; // Импортируем toast
-import 'react-toastify/dist/ReactToastify.css'; // Импортируем стили для toast
+import { useSelector } from 'react-redux'; 
+import { toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 import TabBar from '../Components/TabBar';
 import '../Styles/AddPost.css'; 
 
 function AddPost() {
-    const user = useSelector((state) => state.auth.user); // Получаем пользователя из Redux
+    const user = useSelector((state) => state.auth.user); 
     const navigate = useNavigate();
     const [content, setContent] = useState('');
     const [media, setMedia] = useState(null);
 
     const handleAddPost = async () => {
         if (!content) {
-            toast.warn('Please fill in all fields'); // Используем toast для предупреждения
+            toast.warn('Please fill in all fields'); 
             return;
         }
 

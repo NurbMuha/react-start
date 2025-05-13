@@ -3,8 +3,6 @@ import TabBar from '../Components/TabBar';
 
 function ManageUsers() {
     const [users, setUsers] = useState([]);
-
-    // Загружаем список пользователей при загрузке страницы
     const fetchUsers = () => {
         fetch("http://localhost:3001/users")
             .then(response => response.json())
@@ -13,10 +11,10 @@ function ManageUsers() {
     };
 
     useEffect(() => {
-        fetchUsers(); // Загружаем пользователей при монтировании компонента
+        fetchUsers();
     }, []);
 
-    // Функция для блокировки пользователя
+    
     const banUser = (userId) => {
         fetch(`http://localhost:3001/users/${userId}`, {
             method: 'PATCH',
@@ -32,7 +30,7 @@ function ManageUsers() {
             return response.json();
         })
         .then(() => {
-            fetchUsers(); // Повторно загружаем пользователей после обновления
+            fetchUsers();
         })
         .catch(error => console.error('Error banning user:', error));
     };
@@ -52,7 +50,7 @@ function ManageUsers() {
             return response.json();
         })
         .then(() => {
-            fetchUsers(); // Обновляем список пользователей
+            fetchUsers(); 
         })
         .catch(error => console.error('Error resetting password:', error));
     };

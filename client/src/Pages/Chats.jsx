@@ -14,7 +14,7 @@ function Chats() {
 
     useEffect(() => {
         if (!user) {
-            navigate('/login'); // Redirect to login if user is not logged in
+            navigate('/login'); 
             return;
         }
 
@@ -31,7 +31,6 @@ function Chats() {
         fetchConversations();
 
         return () => {
-            // Cleanup logic (if needed)
             setConversations([]);
             setMessages([]);
         };
@@ -80,9 +79,6 @@ function Chats() {
         }
     };
 
-    if (!user) {
-        return null; // Prevent rendering if user is not available
-    }
 
     return (
         <div className="background-container">

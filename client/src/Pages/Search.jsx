@@ -70,7 +70,7 @@ function Search () {
           }
         }}
       >
-        <h1>Edit</h1>
+        <i className="fas fa-edit"></i> 
       </button>
       <label>
         Content:

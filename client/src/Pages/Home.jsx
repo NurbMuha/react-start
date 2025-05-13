@@ -151,11 +151,12 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => handleLikePost(post.id)}
+                  className="like-button"
                 >
                   {likes.some(like => like.userId === user?.id && like.post_id === post.id) ? (
-                    <i className="fa-solid fa-heart"></i>
+                    <i className="fas fa-heart"></i>
                   ) : (
-                    <i className="fa-regular fa-heart"></i>
+                    <i className="far fa-heart"></i>
                   )}
                 </button>
                 <span>{likeCount} Likes</span>
@@ -163,8 +164,9 @@ export default function Home() {
               {user && user.role === "moderator" && (
                 <button
                   onClick={() => handleDeletePost(post.id)}
+                  className="delete-button"
                 >
-                  Delete
+                  <i className="fas fa-trash-alt"></i>
                 </button>
               )}
             </div>

@@ -19,7 +19,7 @@ function App() {
   React.useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     if (storedUser) {
-      dispatch(login(storedUser)); // Синхронизируем Redux с localStorage
+      dispatch(login(storedUser)); 
     }
   }, [dispatch]);
 
@@ -28,25 +28,18 @@ function App() {
       <ToastContainer />
       <BrowserRouter>
         <Routes>
-          {/* Главная страница */}
           <Route
             path="/home"
             element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <Home />) : <Navigate to="/login" />}
           />
-
-          {/* Поиск (только для модераторов) */}
           <Route
             path="/search"
             element={user ? (user.role === "moderator" ? <Search /> : <Navigate to="/profile" />) : <Navigate to="/login" />}
           />
-
-          {/* Добавление поста (доступно всем, кроме заблокированных) */}
           <Route
             path="/add-post"
             element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <AddPost />) : <Navigate to="/login" />}
           />
-
-          {/* Чаты (доступны всем, кроме заблокированных) */}
           <Route
             path="/chats"
             element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <Chats />) : <Navigate to="/login" />}
@@ -55,20 +48,14 @@ function App() {
             path="/manage-users"
             element={user ? (user.role === "admin" ? <ManageUsers /> : <Navigate to="/profile" />) : <Navigate to="/login" />}
           />
-
-          {/* Профиль (доступен всем авторизованным пользователям) */}
           <Route
             path="/profile"
             element={<Profile />}
-          />
-
-          {/* Логин */}
+          />          
           <Route
             path="/login"
             element={<Login />}
           />
-
-          {/* Регистрация */}
           <Route
             path="/signup"
             element={<SignUp />}
