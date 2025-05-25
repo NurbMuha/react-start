@@ -31,6 +31,14 @@
       "password": "12345678",
       "role": "ban",
       "avatar": null
+    },
+    {
+      "id": "515b",
+      "email": "email@email.com",
+      "username": "NewUser",
+      "password": "$2b$10$KkZ5QfL934cfOEYGUbUjkecpzfLDffVAq2VMHwMAhZpOHW23SfheG",
+      "role": "user",
+      "avatar": null
     }
   ],
   "posts": [

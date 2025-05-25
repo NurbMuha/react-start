@@ -1,59 +1,71 @@
-/* SignUp.css */
 .signup-container {
-  background: linear-gradient(to bottom right, #1e3c72, #2a5298); /* Blue gradient */
-  color: white;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
   padding: 20px;
-  position: relative;
-}
-
-.signup-container h1 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
   text-align: center;
 }
 
-.signup-container form {
-  background-color: rgba(0, 0, 0, 0.6); /* Slightly transparent background */
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+.signup-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
+  gap: 15px;
 }
 
-.signup-container input {
-  width: 100%;
-  padding: 15px;
-  margin-bottom: 20px;
-  background-color: #2b3a4e;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #111; /* Make input text black */
+  background-color: #fff; /* Ensure background is white */
+}
+
+.readonly-input {
+  background-color: #e0e0e0; /* Darker gray for better contrast */
+  color: #111; /* Black text for readonly input */
+  cursor: not-allowed;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.signup-button,
+.back-button {
+  padding: 10px 20px;
   border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 1rem;
-  outline: none;
-}
-
-.signup-container input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.signup-container button {
-  padding: 15px;
-  background-color: #1e73be;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 1.1rem;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%;
-  margin-top: 20px;
+  font-size: 16px;
+}
+
+.signup-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.signup-button:hover {
+  background-color: #0056b3;
+}
+
+.back-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.back-button:hover {
+  background-color: #5a6268;
 }
