@@ -25,7 +25,7 @@ function TabBar() {
       {user && (
         <>
         <div className="tab-item">
-          <Link to="/search">
+          <Link to="/edit-post">
           <i className="fas fa-edit"></i>
           <span>Edit Posts</span>
           </Link>

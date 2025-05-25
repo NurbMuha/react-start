@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./authReducer";
 import Home from "./Pages/Home";
-import Search from "./Pages/Search";
+import EditPost from "./Pages/EditPost";
 import AddPost from "./Pages/AddPost";
 import Chats from './Pages/Chats';
 import ManageUsers from "./Pages/ManageUsers";
@@ -33,8 +33,8 @@ function App() {
             element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <Home />) : <Navigate to="/login" />}
           />
           <Route
-            path="/search"
-            element={user ? (user.role === "moderator" ? <Search /> : <Navigate to="/profile" />) : <Navigate to="/login" />}
+            path="/edit-post"
+            element={user ? (user.role === "moderator" ? <EditPost /> : <Navigate to="/profile" />) : <Navigate to="/login" />}
           />
           <Route
             path="/add-post"
