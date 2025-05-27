@@ -30,30 +30,30 @@ function App() {
         <Routes>
           <Route
             path="/home"
-            element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <Home />) : <Navigate to="/login" />}
+            element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <Home />) : <Navigate to="/" />}
           />
           <Route
             path="/edit-post"
-            element={user ? (user.role === "moderator" ? <EditPost /> : <Navigate to="/profile" />) : <Navigate to="/login" />}
+            element={user ? (user.role === "moderator" ? <EditPost /> : <Navigate to="/profile" />) : <Navigate to="/" />}
           />
           <Route
             path="/add-post"
-            element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <AddPost />) : <Navigate to="/login" />}
+            element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <AddPost />) : <Navigate to="/" />}
           />
           <Route
             path="/chats"
-            element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <Chats />) : <Navigate to="/login" />}
+            element={user ? (user.role === "ban" ? <Navigate to="/profile" /> : <Chats />) : <Navigate to="/" />}
           />
           <Route
             path="/manage-users"
-            element={user ? (user.role === "admin" ? <ManageUsers /> : <Navigate to="/profile" />) : <Navigate to="/login" />}
+            element={user ? (user.role === "admin" ? <ManageUsers /> : <Navigate to="/profile" />) : <Navigate to="/" />}
           />
           <Route
             path="/profile"
-            element={<Profile />}
-          />          
+            element={user ? <Profile /> : <Navigate to="/" />}
+          />
           <Route
-            path="/login"
+            path="/"
             element={<Login />}
           />
           <Route

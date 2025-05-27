@@ -138,7 +138,7 @@ export default function SignUp() {
           <button
             type="button"
             className="back-button"
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/')}
           >
             Back
           </button>
