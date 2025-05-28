@@ -5,6 +5,7 @@ import TabBar from '../Components/TabBar';
 import '../Styles/Chats.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaUserCircle } from 'react-icons/fa';
 
 function Chats() {
   const user = useSelector((state) => state.auth.user);
@@ -16,17 +17,15 @@ function Chats() {
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate('/');
       return;
     }
 
     const fetchConversations = async () => {
       try {
-        // Fetch all conversations and filter by user ID
         const response = await fetch('http://localhost:3001/conversations');
         if (!response.ok) throw new Error('Failed to fetch conversations');
         const data = await response.json();
-        // Filter conversations where the user is a participant
         const userConversations = data.filter((conv) =>
           conv.participants.includes(user.id)
         );
@@ -52,7 +51,6 @@ function Chats() {
 
   const fetchMessages = async (conversationId) => {
     try {
-      // Fetch messages filtered by conversation ID
       const response = await fetch(
         `http://localhost:3001/messages?conversation_id=${conversationId}`
       );
@@ -112,11 +110,14 @@ function Chats() {
                 }`}
                 onClick={() => handleSelectConversation(conversation)}
               >
-                {conversation.participantNames
-                  .filter((name) => name !== user.username)
-                  .map((name) => (
-                    <span key={name}>{name}</span>
-                  ))}
+                <div className="conversation-user">
+                  <FaUserCircle className="conversation-avatar" />
+                  {conversation.participantNames
+                    .filter((name) => name !== user.username)
+                    .map((name) => (
+                      <span key={name}>{name}</span>
+                    ))}
+                </div>
               </div>
             ))
           ) : (

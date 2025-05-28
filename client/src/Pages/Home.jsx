@@ -3,7 +3,6 @@ import PostCard from '../Components/PostCard';
 import TabBar from '../Components/TabBar';
 import "../Styles/Home.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,17 +10,9 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [likes, setLikes] = useState([]);
-  const [editedContent, setEditedContent] = useState({});
   const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
-      toast.warn('You must be logged in to view posts');
-      navigate('/login');
-      return;
-    }
-
     const fetchPosts = async () => {
       try {
         const postsResponse = await fetch("http://localhost:3001/posts");
@@ -61,7 +52,7 @@ export default function Home() {
     fetchPosts();
     fetchUsers();
     fetchLikes();
-  }, [user, navigate]);
+  }, []);
 
   const handleLikePost = async (postId) => {
     if (!user || !user.id) {
@@ -134,6 +125,7 @@ export default function Home() {
     return likes.filter(like => like.post_id === postId).length;
   };
 
+  // Format the date to show only date and time (hours:minutes)
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
     return date.toLocaleString('en-US', {
@@ -142,53 +134,8 @@ export default function Home() {
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-      hour12: false,
-    }).replace(/,/, '');
-  };
-
-  const handleEditPost = async (postId) => {
-    const content = editedContent[postId];
-    if (!content) {
-      toast.warn('Please enter content to update');
-      return;
-    }
-
-    if (user.role === 'ban') {
-      toast.error('You are banned and cannot edit posts');
-      return;
-    }
-
-    const post = posts.find((p) => p.id === postId);
-    if (!post) {
-      toast.error('Post not found');
-      return;
-    }
-
-    if (user.id !== post.userId && user.role !== 'admin' && user.role !== 'moderator') {
-      toast.error('You can only edit your own posts or as an admin/moderator');
-      return;
-    }
-
-    try {
-      const response = await fetch(`http://localhost:3001/posts/${postId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ content }),
-      });
-
-      if (!response.ok) throw new Error('Failed to update post');
-      const updatedPost = await response.json();
-      setPosts((prevPosts) =>
-        prevPosts.map((p) => (p.id === updatedPost.id ? updatedPost : p))
-      );
-      setEditedContent((prev) => ({ ...prev, [postId]: '' })); // Clear input
-      toast.success('Post updated successfully!');
-    } catch (error) {
-      console.error(`Error updating post with ID: ${postId}`, error);
-      toast.error('Failed to update post');
-    }
+      hour12: false, // Use 24-hour format
+    }).replace(/,/, ''); // Remove the comma between date and time
   };
 
   return (
@@ -198,8 +145,7 @@ export default function Home() {
         {posts.map(post => {
           const matchedUser = users.find(user => user.id === post.userId);
           const likeCount = getLikeCount(post.id);
-          const formattedDate = formatDate(post.created_at);
-          const currentContent = editedContent[post.id] || '';
+          const formattedDate = formatDate(post.created_at); // Format the date
 
           return (
             <div key={post.id}>
@@ -208,13 +154,10 @@ export default function Home() {
                 author={matchedUser ? matchedUser.username : "Unknown"}
                 date={formattedDate}
                 onDelete={() => handleDeletePost(post.id)}
-                onEdit={() => {}} // Placeholder, will be handled in PostCard
+                onEdit={() => console.log("Edit post", post.id)}
                 onLike={() => handleLikePost(post.id)}
-                likes={likes}
-                user={user}
-                editedContent={currentContent}
-                setEditedContent={setEditedContent}
-                handleEditPost={() => handleEditPost(post.id)}
+                likes={likes} // Pass likes state to PostCard
+                user={user} // Pass user state to PostCard
               />
             </div>
           );

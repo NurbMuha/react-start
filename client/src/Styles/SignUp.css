@@ -6,7 +6,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: url("../Images/bg.png");
+  background-image: url("../Images/bg.png"); /* Kept as original */
   background-size: cover;
   background-position: center;
   overflow-y: auto;
@@ -14,114 +14,105 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  position: fixed;
+  position: fixed; /* Matches login-page */
 }
 
 .signup-form {
-  background-color: rgba(128, 128, 128, 0.3);
-  position: relative;
-  width: 424px;
-  height: 549px;
+  background-color: rgba(255, 255, 255, 0.1); /* Matches login-form's translucent white */
+  position: absolute; /* Matches login-form positioning */
+  width: 424px; /* Matches login-form width */
+  height: 549px; /* Matches login-form height */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center; /* Centered content vertically like login-form */
   align-items: center;
-  padding: 40px;
+  padding: 40px; /* Matches login-form padding */
   box-sizing: border-box;
-  border-radius: 46px;
-  backdrop-filter: blur(100px);
+  border-radius: 46px; /* Matches login-form's rounded corners */
+  backdrop-filter: blur(100px); /* Matches login-form's strong blur */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Matches login-form's shadow */
 }
 
 .signup-header {
   font-size: 2rem;
-  margin-bottom: 30px;
+  margin-bottom: 30px; /* Matches login-header spacing */
   text-align: center;
   color: #ffffff;
   font-family: 'SF Pro', sans-serif;
 }
 
 .signup-input {
-  position: relative;
-  width: 305px;
-  height: 44px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0px 20px;
-  border-radius: 12px;
-  box-shadow: inset 1px 1.5px 4px 0px rgba(0, 0, 0, 0.1), inset 1px 1.5px 4px 0px rgba(0, 0, 0, 0.08), inset 0px -0.5px 1px 0px rgba(255, 255, 255, 0.25), inset 0px -0.5px 1px 0px rgba(255, 255, 255, 0.3);
-  background: rgba(0, 0, 0, 0.1), rgba(208, 208, 208, 0.5);
-  color: #ffffff;
+  width: 100%; /* Full width within form like login-input */
+  height: 40px; /* Matches login-input height */
+  padding: 10px 15px; /* Matches login-input padding */
   border: none;
+  border-radius: 8px; /* Matches login-input rounding */
+  background-color: rgba(255, 255, 255, 0.2); /* Matches login-input background */
+  color: #ffffff;
+  font-size: 1rem;
   outline: none;
+  font-family: 'SF Pro', sans-serif;
+  margin-bottom: 10px; /* Matches login-input spacing */
 }
 
 .signup-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7); /* Matches login-input placeholder */
 }
 
 .readonly-input {
-  background: rgba(0, 0, 0, 0.2);
-  cursor: not-allowed;
+  background: rgba(0, 0, 0, 0.2); /* Kept as original */
+  cursor: not-allowed; /* Kept as original */
 }
 
 /* Sign up button */
 .signup-button {
-  position: static;
-  width: 305px;
-  height: 46px;
+  width: 100%; /* Full width within form like login-button */
+  height: 46px; /* Matches login-button height */
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px;
-  flex: none;
-  order: undefined;
-  flex-grow: 0;
-  margin: 20px 0px;
-  font-family: 'SF Pro', sans-serif;
-  border-radius: 100px;
-  background: rgb(0, 122, 255);
+  border-radius: 23px; /* Matches login-button rounding */
+  background: #007aff; /* Matches login-button blue */
   color: #ffffff;
   border: none;
   cursor: pointer;
+  font-size: 1rem;
+  font-family: 'SF Pro', sans-serif;
+  transition: background-color 0.3s;
 }
 
 .signup-button:hover {
-  background-color: #155a8a;
+  background-color: #005bb5; /* Matches login-button hover */
 }
 
 .signup-button:active {
-  background-color: #104c72;
+  background-color: #003d80; /* Matches login-button active */
 }
 
 /* Back button */
 .back-button {
-  position: static;
-  width: 305px;
-  height: 46px;
+  width: 100%; /* Full width within form like signup-button in Login.css */
+  height: 46px; /* Matches signup-button height in Login.css */
   display: flex;
-  flex-direction: row;
+  margin-top: 16px; /* Matches spacing in Login.css */
   justify-content: center;
   align-items: center;
-  padding: 0px;
-  flex: none;
-  order: undefined;
-  flex-grow: 0;
-
-  border-radius: 100px;
-  background: rgba(255, 255, 255, 0.07);
+  border-radius: 23px; /* Matches signup-button rounding in Login.css */
+  background: rgba(255, 255, 255, 0.1); /* Matches signup-button background in Login.css */
   color: #ffffff;
   border: none;
   cursor: pointer;
+  font-size: 1rem;
+  font-family: 'SF Pro', sans-serif;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .back-button:hover {
   background-color: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+  transform: scale(1.02); /* Matches signup-button hover in Login.css */
 }
 
 .back-button:active {
-  background-color: #155a8a;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(0.98); /* Matches signup-button active in Login.css */
 }

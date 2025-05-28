@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import profileImage from '../Images/profile.png'; // Import the avatar image
 
-export default function PostCard({ post, author, date, onDelete, onEdit, onLike, likes, user, editedContent, setEditedContent, handleEditPost }) {
+export default function PostCard({ post, author, date, onDelete, onLike, likes, user, editedContent, setEditedContent, handleEditPost }) {
   const [isEditing, setIsEditing] = useState(false);
-  const isLiked = likes.some(like => like.userId === user?.id && like.post_id === post.id);
+  const isLiked = likes?.some(like => like.userId === user?.id && like.post_id === post.id); // Added optional chaining
   const canEdit = user && (user.id === post.userId || user.role === 'admin' || user.role === 'moderator') && user.role !== 'ban';
-  const canDelete = user && (user.role === 'admin' || user.role === 'moderator');
+  const canDelete = user && (
+  user.role === 'admin' ||
+  user.role === 'moderator' ||
+  user.id === post.userId
+);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -24,9 +29,13 @@ export default function PostCard({ post, author, date, onDelete, onEdit, onLike,
     <div className="post-card">
       <div className="post-header">
         <img
-          src=""
+          src={profileImage}
           alt="avatar"
           className="avatar"
+          onError={(e) => {
+            e.target.style.display = 'none';
+            console.error('Failed to load avatar image');
+          }}
         />
         <div className="post-user-info">
           <span className="author">{author}</span>
@@ -60,7 +69,7 @@ export default function PostCard({ post, author, date, onDelete, onEdit, onLike,
                 <i className="far fa-heart"></i>
               )}
             </button>
-            <span>{likes.filter(like => like.post_id === post.id).length} Likes</span>
+            <span>{likes?.filter(like => like.post_id === post.id).length} Likes</span> {/* Added optional chaining */}
           </div>
           {canEdit && (
             <button

@@ -1,9 +1,13 @@
+/* Chats.css */
+
 .background-container {
     position: relative;
     width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-image: url("../Images/bg.png");
     background-size: cover;
     background-position: center;
@@ -14,31 +18,73 @@
 
 .chats-container {
     display: flex;
-    height: calc(100vh - 80px); /* Учитываем высоту TabBar */
-    margin: 40px auto; /* Увеличиваем отступы */
-    width: 60%; /* Уменьшаем ширину */
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 20px; /* Увеличиваем радиус скругления */
-    backdrop-filter: blur(10px);
-    overflow: hidden;
+    gap: 16px;
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(100px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    max-width: 900px;
+    height: 600px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
 }
 
 .conversations-list {
     width: 30%;
-    border-right: 2px solid rgba(255, 255, 255, 0.2); /* Увеличиваем толщину границы */
-    padding: 40px; /* Увеличиваем отступы */
+    border-right: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 24px;
     background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 20px 0 0 20px; /* Скругляем только левую часть */
+    border-radius: 20px 0 0 20px;
+    overflow-y: auto;
+}
+
+.conversations-list h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+.conversations-list p {
+    color: #ffffff;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 .conversation-item {
-    padding: 20px; /* Увеличиваем внутренние отступы */
-    margin-bottom: 20px; /* Увеличиваем расстояние между элементами */
-    border-radius: 15px; /* Увеличиваем радиус скругления */
+    width: 90%;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 15px;
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.1);
-    font-size: 1.5rem; /* Увеличиваем размер текста */
+    font-size: 1.2rem;
+    color: #ffffff;
     transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+.conversation-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.conversation-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    object-fit: cover;
 }
 
 .conversation-item:hover {
@@ -55,59 +101,88 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 40px; /* Увеличиваем отступы */
+    padding: 24px;
     background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 0 20px 20px 0; /* Скругляем только правую часть */
+    border-radius: 0 20px 20px 0;
 }
 
 .messages-list {
     flex: 1;
     overflow-y: auto;
-    margin-bottom: 40px; /* Увеличиваем отступ снизу */
+    margin-bottom: 24px;
+    display: flex; /* Ensure flex context for alignment */
+    flex-direction: column; /* Stack messages vertically */
+    justify-content: flex-start; /* Align content from the top */
+    align-items: stretch; /* Allow items to stretch horizontally */
 }
 
 .message-item {
-    padding: 20px; /* Увеличиваем внутренние отступы */
-    margin-bottom: 20px; /* Увеличиваем расстояние между сообщениями */
-    border-radius: 20px; /* Увеличиваем радиус скругления */
-    max-width: 80%; /* Увеличиваем ширину сообщений */
-    font-size: 1.5rem; /* Увеличиваем размер текста */
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 20px;
+    max-width: 80%;
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 .message-item.sent {
-    background-color: rgba(173, 216, 230, 0.8);
-    align-self: flex-end;
+    background-color: #007bff;
+    align-self: flex-end; /* Align to the right */
 }
 
 .message-item.received {
-    background-color: rgba(255, 255, 255, 0.2);
-    align-self: flex-start;
+    backdrop-filter: blur(100px);
+    background: rgba(127, 127, 127, 0.3);
+    align-self: flex-start; /* Align to the left */
+}
+
+.no-conversation-selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.2rem;
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 .message-input {
     display: flex;
-    gap: 20px; /* Увеличиваем расстояние между полем ввода и кнопкой */
+    gap: 16px;
 }
 
 .message-input input {
     flex: 1;
-    padding: 20px; /* Увеличиваем внутренние отступы */
-    border: 2px solid rgba(255, 255, 255, 0.2); /* Увеличиваем толщину границы */
-    border-radius: 20px; /* Увеличиваем радиус скругления */
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.1);
     color: #fff;
-    font-size: 1.5rem; /* Увеличиваем размер текста */
+    font-size: 1.2rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.message-input input:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.message-input input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 .message-input button {
-    padding: 20px 40px; /* Увеличиваем внутренние отступы */
+    padding: 12px 24px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 20px; /* Увеличиваем радиус скругления */
-    font-size: 1.5rem; /* Увеличиваем размер текста */
+    border-radius: 20px;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 .message-input button:hover {

@@ -1,12 +1,12 @@
 /* Login.css */
 
 .login-page {
-  position: relative;
+  position: relative; /* Reverted to original */
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: url("../Images/bg.png");
+  background-image: url("../Images/bg.png"); /* Reverted to original background image */
   background-size: cover;
   background-position: center;
   overflow-y: auto;
@@ -14,48 +14,45 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  position: fixed;
+  position: fixed; /* Kept fixed as it was in the last version */
 }
 
 .login-form {
-  background-color: rgba(128, 128, 128, 0.3);
-  position: absolute;
-  width: 424px;
-  height: 549px;
+  background-color: rgba(255, 255, 255, 0.1); /* Matches screenshot's translucent white */
+  position: absolute; /* Matches screenshot positioning */
+  width: 424px; /* Matches screenshot width */
+  height: 549px; /* Matches screenshot height */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center; /* Centered content vertically */
   align-items: center;
-  padding: 40px; /* Adjusted padding to better distribute space */
+  padding: 40px; /* Matches original padding, adjusted for content */
   box-sizing: border-box;
-  border-radius: 46px;
-  backdrop-filter: blur(100px);
+  border-radius: 46px; /* Matches screenshot's rounded corners */
+  backdrop-filter: blur(100px); /* Matches screenshot's strong blur */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added subtle shadow from screenshot */
 }
 
 .login-header {
   font-size: 2rem;
-  margin-bottom: 30px;
-  text-align: center;
+  margin-bottom: 30px; /* Adjusted for spacing */
   color: #ffffff;
   font-family: 'SF Pro', sans-serif;
+  text-align: center;
 }
 
 .login-input {
-  position: relative;
-  width: 305px;
-  height: 44px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 0px 20px;
-  border-radius: 12px;
-  box-shadow: inset 1px 1.5px 4px 0px rgba(0, 0, 0, 0.1), inset 1px 1.5px 4px 0px rgba(0, 0, 0, 0.08), inset 0px -0.5px 1px 0px rgba(255, 255, 255, 0.25), inset 0px -0.5px 1px 0px rgba(255, 255, 255, 0.3);
-  background: rgba(0, 0, 0, 0.1), rgba(208, 208, 208, 0.5);
-  color: #ffffff;
+  width: 90%; /* Full width within form */
+  height: 40px; /* Matches screenshot input height */
+  padding: 10px 15px; /* Adjusted padding for better fit */
   border: none;
+  border-radius: 8px; /* Matches screenshot input rounding */
+  background-color: rgba(255, 255, 255, 0.2); /* Matches screenshot input background */
+  color: #ffffff;
+  font-size: 1rem;
   outline: none;
-  margin-bottom: 20px; /* Add spacing between inputs */
+  font-family: 'SF Pro', sans-serif;
+  margin-bottom: 10px; /* Reduced margin for tighter spacing */
 }
 
 .login-input::placeholder {
@@ -66,8 +63,8 @@
 .forgot-password-container {
   width: 100%;
   text-align: center;
-  margin-top: 40px; /* Increased spacing above the link */
-  margin-bottom: 20px; /* Spacing below the link */
+  margin-top: 20px; /* Adjusted to match screenshot spacing */
+  margin-bottom: 20px;
 }
 
 /* Forgot password link */
@@ -81,62 +78,55 @@
 
 /* Login button */
 .login-button {
-  position: static;
-  width: 305px;
-  height: 46px;
+  width: 100%; /* Full width within form */
+  height: 46px; /* Matches screenshot button height */
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px;
-  flex: none;
-  order: undefined;
-  flex-grow: 0;
-  margin: 0px 0px;
-  font-family: 'SF Pro', sans-serif;
-  border-radius: 100px;
-  background: rgb(0, 122, 255);
+  border-radius: 23px; /* Matches screenshot button rounding */
+  background: #007aff; /* Matches screenshot blue button */
   color: #ffffff;
   border: none;
   cursor: pointer;
+  font-size: 1rem;
+  font-family: 'SF Pro', sans-serif;
+  transition: background-color 0.3s;
 }
 
 .login-button:hover {
-  background-color: #155a8a;
+  background-color: #005bb5;
 }
 
 .login-button:active {
-  background-color: #104c72;
+  background-color: #003d80;
 }
 
 /* Signup button */
 .signup-button {
-  position: static;
-  width: 305px; /* Adjusted to match login button width */
-  height: 46px; /* Adjusted to match login button height */
+  width: 100%; /* Full width within form */
+  height: 46px; /* Matches screenshot button height */
   display: flex;
-  flex-direction: row;
+  margin-top: 16px;
   justify-content: center;
   align-items: center;
-  padding: 0px;
-  flex: none;
-  order: undefined;
-  flex-grow: 0;
-  margin-top: 20px; /* Reduced margin to bring it closer to the login button */
-  border-radius: 100px;
-  background: rgba(255, 255, 255, 0.07);
+  border-radius: 23px; /* Matches screenshot button rounding */
+  background: rgba(255, 255, 255, 0.1); /* Matches screenshot transparent button */
   color: #ffffff;
   border: none;
   cursor: pointer;
+  font-size: 1rem;
+  font-family: 'SF Pro', sans-serif;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .signup-button:hover {
   background-color: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .signup-button:active {
-  background-color: #155a8a;
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(0.98);
 }
 
 .notification-container {

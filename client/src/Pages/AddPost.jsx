@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import TabBar from '../Components/TabBar';
 import '../Styles/AddPost.css';
+import { FaPaperclip, FaUserCircle } from 'react-icons/fa';
+import profileImage from '../Images/profile.png';
 
 function AddPost() {
   const user = useSelector((state) => state.auth.user);
@@ -17,18 +19,15 @@ function AddPost() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validate file type
       if (!file.type.startsWith('image/')) {
         toast.error('Please select an image file');
         return;
       }
-      // Validate file size (e.g., max 5MB)
       if (file.size > 5 * 1024 * 1024) {
         toast.error('Image size must be less than 5MB');
         return;
       }
       setMedia(file);
-      // Convert file to base64
       const reader = new FileReader();
       reader.onloadend = () => {
         setBase64Image(reader.result);
@@ -62,7 +61,7 @@ function AddPost() {
       content,
       userId: user.id,
       created_at: new Date().toISOString(),
-      image: base64Image, // Store base64 string or null if no image
+      image: base64Image,
     };
 
     try {
@@ -87,8 +86,18 @@ function AddPost() {
     <div className="add-post-container">
       <TabBar />
       <div className="add-post-content">
-        <div className="add-post-header">
-          <h1>Add Post</h1>
+        <div className="top-bar">
+          <div className="user-info">
+            {user?.profileImage ? (
+              <img src={profileImage} className="avatar" alt="User Avatar" />
+            ) : (
+              <FaUserCircle className="avatar-icon" />
+            )}
+            <span className="username">{user?.username || 'Anonymous'}</span>
+          </div>
+          <div className="add-post-button">
+            <button onClick={handleAddPost}>Post</button>
+          </div>
         </div>
         <div className="add-post-textarea">
           <input
@@ -99,30 +108,27 @@ function AddPost() {
             required
           />
           <textarea
-            placeholder="Content"
+            placeholder="What's on your mind?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
           />
+          {base64Image && (
+            <div className="image-preview">
+              <img src={base64Image} alt="Preview" />
+            </div>
+          )}
         </div>
         <div className="add-post-file">
           <input
             type="file"
             accept="image/*"
+            id="media-upload"
             onChange={handleFileChange}
           />
-          {base64Image && (
-            <div className="image-preview">
-              <img
-                src={base64Image}
-                alt="Preview"
-                style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }}
-              />
-            </div>
-          )}
-        </div>
-        <div className="add-post-button">
-          <button onClick={handleAddPost}>Add Post</button>
+          <label htmlFor="media-upload" className="upload-button">
+            <FaPaperclip />
+          </label>
         </div>
       </div>
     </div>

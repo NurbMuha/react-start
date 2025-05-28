@@ -43,7 +43,7 @@ div.notification {
 
 /* Circular image */
 .notification-image {
-  background-image: url("../Images/notification.png");
+  background-image: url("../Images/image2.png");
   background-size: cover;
   background-position: center;
   width: 48px; /* Reverted from 72px */

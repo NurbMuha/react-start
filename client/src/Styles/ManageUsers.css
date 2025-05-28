@@ -1,68 +1,126 @@
+/* ManageUsers.css */
+
+.background-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../Images/bg.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 .manage-users-content {
-  padding: 20px;
-  display: flex;
-  justify-content: center;
+    padding: 24px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    backdrop-filter: blur(100px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    width: 100%;
+    max-width: 600px; /* Slightly wider than user-list for padding */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.manage-users-content h1 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 .user-list {
-  list-style: none;
-  padding: 0;
-  max-width: 500px; /* adjust as needed */
-  width: 100%;
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-width: 500px;
 }
 
 .user-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-family: 'SF Pro Display', sans-serif;
+    transition: background-color 0.3s ease;
+}
+
+.user-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .user-actions {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 12px;
 }
 
 .ban-button,
-.reset-password-button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.unban-button,
+.reset-password-button,
+.role-select {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px; /* Match rounded buttons from Chats */
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-family: 'SF Pro Display', sans-serif;
+    color: #ffffff;
+    transition: background-color 0.3s ease;
 }
 
 .ban-button {
-  background-color: #dc3545;
-  color: white;
+    background-color: #dc3545;
 }
 
 .ban-button:hover {
-  background-color: #c82333;
+    background-color: #c82333;
 }
 
-.ban-button:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
-}
 .unban-button {
-  padding: 8px 16px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+    background-color: #28a745;
 }
 
 .unban-button:hover {
-  background-color: #218838;
+    background-color: #218838;
 }
 
 .reset-password-button {
-  background-color: #007bff;
-  color: white;
+    background-color: #007bff;
 }
 
 .reset-password-button:hover {
-  background-color: #0056b3;
+    background-color: #0056b3;
+}
+
+.role-select {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    appearance: none;
+    font-size: 1.2rem;
+    font-family: 'SF Pro Display', sans-serif;
+    cursor: pointer;
+}
+
+.role-select:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
 }

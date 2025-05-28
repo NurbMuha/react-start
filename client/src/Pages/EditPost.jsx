@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import TabBar from '../Components/TabBar';
 import PostCard from '../Components/PostCard';
-import '../Styles/Home.css';
+import '../Styles/Home.css'; // Reuse Home.css for consistent design
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,6 +12,7 @@ function EditPost() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
+  const [likes, setLikes] = useState([]);
   const [editedContent, setEditedContent] = useState({});
 
   useEffect(() => {
@@ -45,8 +46,21 @@ function EditPost() {
       }
     };
 
+    const fetchLikes = async () => {
+      try {
+        const likesResponse = await fetch('http://localhost:3001/likes');
+        if (!likesResponse.ok) throw new Error('Failed to fetch likes');
+        const likesData = await likesResponse.json();
+        setLikes(likesData);
+      } catch (error) {
+        console.error('Error fetching likes:', error);
+        toast.error('Failed to fetch likes');
+      }
+    };
+
     fetchPosts();
     fetchUsers();
+    fetchLikes();
   }, [user, navigate]);
 
   const handleEditPost = async (postId) => {
@@ -67,8 +81,8 @@ function EditPost() {
       return;
     }
 
-    if (user.id !== post.userId && user.role !== 'admin') {
-      toast.error('You can only edit your own posts or as an admin');
+    if (user.id !== post.userId && user.role !== 'admin' && user.role !== 'moderator') {
+      toast.error('You can only edit your own posts or as an admin/moderator');
       return;
     }
 
@@ -94,6 +108,73 @@ function EditPost() {
     }
   };
 
+  const handleDeletePost = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/posts/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) throw new Error(`Failed to delete post ${postId}`);
+      setPosts(posts.filter(post => post.id !== postId));
+      toast.success('Post deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      toast.error('Failed to delete post');
+    }
+  };
+
+  const handleLikePost = async (postId) => {
+    if (!user || !user.id) {
+      toast.warn('You must be logged in to like a post');
+      return;
+    }
+
+    const existingLike = likes.find(like => like.userId === user.id && like.post_id === postId);
+
+    if (existingLike) {
+      try {
+        const response = await fetch(`http://localhost:3001/likes/${existingLike.id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) throw new Error(`Failed to delete like for post ${postId}`);
+        setLikes(likes.filter(like => like.id !== existingLike.id));
+        toast.success('Like removed successfully!');
+      } catch (error) {
+        console.error('Error deleting like:', error);
+        toast.error('Failed to remove like');
+      }
+    } else {
+      const newLike = {
+        userId: user.id,
+        post_id: postId,
+      };
+
+      try {
+        const response = await fetch('http://localhost:3001/likes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newLike),
+        });
+
+        if (!response.ok) throw new Error('Failed to add like');
+        const savedLike = await response.json();
+        setLikes([...likes, savedLike]);
+        toast.success('Post liked successfully!');
+      } catch (error) {
+        console.error('Error adding like:', error);
+        toast.error('Failed to like post');
+      }
+    }
+  };
+
   return (
     <div className="background-container">
       <TabBar />
@@ -102,45 +183,20 @@ function EditPost() {
           const matchedUser = users.find((user) => user.id === post.userId);
           const currentContent = editedContent[post.id] || '';
 
-          // Only show edit controls for user's own posts or if user is moderator
-          if (user.id !== post.userId && user.role !== 'moderator') {
-            return (
-              <div key={post.id}>
-                <PostCard
-                  post={post}
-                  author={matchedUser ? matchedUser.username : 'Unknown'}
-                  date={post.created_at}
-                />
-              </div>
-            );
-          }
-
           return (
-            <div key={post.id} className="edit-post-container">
+            <div key={post.id}>
               <PostCard
                 post={post}
                 author={matchedUser ? matchedUser.username : 'Unknown'}
                 date={post.created_at}
+                onDelete={() => handleDeletePost(post.id)}
+                onLike={() => handleLikePost(post.id)}
+                likes={likes}
+                user={user}
+                editedContent={currentContent}
+                setEditedContent={setEditedContent}
+                handleEditPost={() => handleEditPost(post.id)}
               />
-              <div className="edit-post-controls">
-                <label>
-                  Edit Content:
-                  <input
-                    value={currentContent}
-                    onChange={(e) =>
-                      setEditedContent({ ...editedContent, [post.id]: e.target.value })
-                    }
-                    placeholder="Edit content here"
-                    className="edit-content-input"
-                  />
-                </label>
-                <button
-                  onClick={() => handleEditPost(post.id)}
-                  className="edit-post-button"
-                >
-                  <i className="fas fa-edit"></i> Save
-                </button>
-              </div>
             </div>
           );
         })}

@@ -18,8 +18,8 @@ function ManageUsers() {
       return;
     }
 
-    if (user.role !== 'admin') {
-      toast.error('Only admins can manage users');
+    if (user.role !== 'admin' && user.role !== 'moderator') {
+      toast.error('Only admins and moderators can manage users');
       navigate('/home');
       return;
     }
@@ -94,7 +94,7 @@ function ManageUsers() {
 
   const resetPassword = async (userId) => {
     try {
-      const defaultPassword = '12345678'; // Plain text password
+      const defaultPassword = '12345678';
       const response = await fetch(`http://localhost:3001/users/${userId}`, {
         method: 'PATCH',
         headers: {
@@ -114,6 +114,32 @@ function ManageUsers() {
     }
   };
 
+  const changeRole = async (userId, newRole) => {
+    if (userId === user.id) {
+      toast.warn('You cannot change your own role');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3001/users/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ role: newRole }),
+      });
+
+      if (!response.ok) throw new Error('Failed to change role');
+      setUsers((prevUsers) =>
+        prevUsers.map((u) => (u.id === userId ? { ...u, role: newRole } : u))
+      );
+      toast.success(`Role changed to ${newRole} successfully`);
+    } catch (error) {
+      console.error('Error changing role:', error);
+      toast.error('Failed to change role');
+    }
+  };
+
   return (
     <div className="background-container">
       <TabBar />
@@ -126,15 +152,26 @@ function ManageUsers() {
                 {u.username} - Role: {u.role || 'user'}
               </span>
               <div className="user-actions">
-                {u.role !== 'ban' ? (
+                {user.role === 'admin' && u.role !== 'admin' && (
+                  <select
+                    value={u.role || 'user'}
+                    onChange={(e) => changeRole(u.id, e.target.value)}
+                    className="role-select"
+                  >
+                    <option value="user">User</option>
+                    <option value="moderator">Moderator</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                )}
+                {user.role === 'moderator' && u.role !== 'ban' && u.id !== user.id && (
                   <button
                     onClick={() => banUser(u.id)}
                     className="ban-button"
-                    disabled={u.id === user.id}
                   >
                     Ban
                   </button>
-                ) : (
+                )}
+                {user.role === 'moderator' && u.role === 'ban' && (
                   <button
                     onClick={() => unbanUser(u.id)}
                     className="unban-button"
@@ -142,12 +179,14 @@ function ManageUsers() {
                     Unban
                   </button>
                 )}
-                <button
-                  onClick={() => resetPassword(u.id)}
-                  className="reset-password-button"
-                >
-                  Reset Password
-                </button>
+                {user.role === 'admin' && (
+                  <button
+                    onClick={() => resetPassword(u.id)}
+                    className="reset-password-button"
+                  >
+                    Reset Password
+                  </button>
+                )}
               </div>
             </li>
           ))}

@@ -46,7 +46,7 @@ function App() {
           />
           <Route
             path="/manage-users"
-            element={user ? (user.role === "admin" ? <ManageUsers /> : <Navigate to="/profile" />) : <Navigate to="/" />}
+            element={user ? ((user.role === "admin" || user.role === "moderator") ? <ManageUsers /> : <Navigate to="/profile" />) : <Navigate to="/" />}
           />
           <Route
             path="/profile"
