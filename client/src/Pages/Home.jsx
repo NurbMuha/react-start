@@ -3,6 +3,7 @@ import PostCard from '../Components/PostCard';
 import TabBar from '../Components/TabBar';
 import "../Styles/Home.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,9 +11,17 @@ export default function Home() {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
   const [likes, setLikes] = useState([]);
+  const [editedContent, setEditedContent] = useState({});
   const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!user) {
+      toast.warn('You must be logged in to view posts');
+      navigate('/login');
+      return;
+    }
+
     const fetchPosts = async () => {
       try {
         const postsResponse = await fetch("http://localhost:3001/posts");
@@ -52,7 +61,7 @@ export default function Home() {
     fetchPosts();
     fetchUsers();
     fetchLikes();
-  }, []);
+  }, [user, navigate]);
 
   const handleLikePost = async (postId) => {
     if (!user || !user.id) {
@@ -125,6 +134,63 @@ export default function Home() {
     return likes.filter(like => like.post_id === postId).length;
   };
 
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    }).replace(/,/, '');
+  };
+
+  const handleEditPost = async (postId) => {
+    const content = editedContent[postId];
+    if (!content) {
+      toast.warn('Please enter content to update');
+      return;
+    }
+
+    if (user.role === 'ban') {
+      toast.error('You are banned and cannot edit posts');
+      return;
+    }
+
+    const post = posts.find((p) => p.id === postId);
+    if (!post) {
+      toast.error('Post not found');
+      return;
+    }
+
+    if (user.id !== post.userId && user.role !== 'admin' && user.role !== 'moderator') {
+      toast.error('You can only edit your own posts or as an admin/moderator');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3001/posts/${postId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content }),
+      });
+
+      if (!response.ok) throw new Error('Failed to update post');
+      const updatedPost = await response.json();
+      setPosts((prevPosts) =>
+        prevPosts.map((p) => (p.id === updatedPost.id ? updatedPost : p))
+      );
+      setEditedContent((prev) => ({ ...prev, [postId]: '' })); // Clear input
+      toast.success('Post updated successfully!');
+    } catch (error) {
+      console.error(`Error updating post with ID: ${postId}`, error);
+      toast.error('Failed to update post');
+    }
+  };
+
   return (
     <div className="background-container">
       <TabBar />
@@ -132,39 +198,24 @@ export default function Home() {
         {posts.map(post => {
           const matchedUser = users.find(user => user.id === post.userId);
           const likeCount = getLikeCount(post.id);
+          const formattedDate = formatDate(post.created_at);
+          const currentContent = editedContent[post.id] || '';
 
           return (
             <div key={post.id}>
               <PostCard
                 post={post}
                 author={matchedUser ? matchedUser.username : "Unknown"}
-                date={post.created_at}
+                date={formattedDate}
                 onDelete={() => handleDeletePost(post.id)}
-                onEdit={() => console.log("Edit post", post.id)}
+                onEdit={() => {}} // Placeholder, will be handled in PostCard
                 onLike={() => handleLikePost(post.id)}
+                likes={likes}
+                user={user}
+                editedContent={currentContent}
+                setEditedContent={setEditedContent}
+                handleEditPost={() => handleEditPost(post.id)}
               />
-              <div className="like-container">
-                <button
-                  type="button"
-                  onClick={() => handleLikePost(post.id)}
-                  className="like-button"
-                >
-                  {likes.some(like => like.userId === user?.id && like.post_id === post.id) ? (
-                    <i className="fas fa-heart"></i>
-                  ) : (
-                    <i className="far fa-heart"></i>
-                  )}
-                </button>
-                <span>{likeCount} Likes</span>
-              </div>
-              {user && (user.role === "admin" || user.role === "moderator") && (
-                <button
-                  onClick={() => handleDeletePost(post.id)}
-                  className="delete-button"
-                >
-                  <i className="fas fa-trash-alt"></i>
-                </button>
-              )}
             </div>
           );
         })}

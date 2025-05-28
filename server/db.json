@@ -39,16 +39,17 @@
       "password": "$2b$10$KkZ5QfL934cfOEYGUbUjkecpzfLDffVAq2VMHwMAhZpOHW23SfheG",
       "role": "user",
       "avatar": null
+    },
+    {
+      "id": "efe9",
+      "email": "suisei@email.com",
+      "username": "Sui",
+      "password": "$2b$10$QbrtIvRwI.fS3L2ucriep.Urp7tO6v3/O3atkQ1gK0jWIWCKohLWe",
+      "role": "user",
+      "avatar": null
     }
   ],
   "posts": [
-    {
-      "id": "2",
-      "userId": "2",
-      "content": "fsfwfe",
-      "created_at": "2025-04-11",
-      "image": null
-    },
     {
       "id": "3",
       "userId": "3",
@@ -59,7 +60,7 @@
     {
       "id": "867d",
       "userId": "b66c",
-      "content": "new post",
+      "content": "New post",
       "created_at": "2025-04-17T09:19:03.806Z",
       "image": null
     },
@@ -87,11 +88,6 @@
       "post_id": "2"
     },
     {
-      "id": "cb9e",
-      "userId": "1",
-      "post_id": "2"
-    },
-    {
       "id": "e33d",
       "userId": "1",
       "post_id": "1"
@@ -100,6 +96,11 @@
       "id": "c348",
       "userId": "2",
       "post_id": "1"
+    },
+    {
+      "id": "cd82",
+      "userId": "1",
+      "post_id": "a961"
     }
   ],
   "conversations": [

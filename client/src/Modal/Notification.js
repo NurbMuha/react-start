@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import './Notification.css';
 
 const Notification = () => {
     const dispatch = useDispatch();
@@ -28,9 +28,12 @@ const Notification = () => {
     };
 
     return (
-        <div className={`notification ${currentNotification.type}`}>
-            <span>{currentNotification.message}</span>
-            <button onClick={handleClose}>✕</button>
+        <div className="notification">
+            <div className="notification-image"></div>
+            <span className="notification-title">Alert</span>
+            <span className="notification-description">Logged in successfully!</span>
+            <button className="notification-action">Ok</button>
+            <button className="notification-close" onClick={handleClose}>✕</button>
         </div>
     );
 };

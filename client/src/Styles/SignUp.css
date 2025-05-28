@@ -1,71 +1,127 @@
-.signup-container {
-  max-width: 400px;
-  margin: 0 auto;
+/* SignUp.css */
+
+.signup-page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../Images/bg.png");
+  background-size: cover;
+  background-position: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  text-align: center;
+  position: fixed;
 }
 
 .signup-form {
+  background-color: rgba(128, 128, 128, 0.3);
+  position: relative;
+  width: 424px;
+  height: 549px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  border-radius: 46px;
+  backdrop-filter: blur(100px);
 }
 
-.form-group {
+.signup-header {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'SF Pro', sans-serif;
+}
+
+.signup-input {
+  position: relative;
+  width: 305px;
+  height: 44px;
   display: flex;
-  flex-direction: column;
-  text-align: left;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 20px;
+  border-radius: 12px;
+  box-shadow: inset 1px 1.5px 4px 0px rgba(0, 0, 0, 0.1), inset 1px 1.5px 4px 0px rgba(0, 0, 0, 0.08), inset 0px -0.5px 1px 0px rgba(255, 255, 255, 0.25), inset 0px -0.5px 1px 0px rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.1), rgba(208, 208, 208, 0.5);
+  color: #ffffff;
+  border: none;
+  outline: none;
 }
 
-.form-group label {
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  color: #111; /* Make input text black */
-  background-color: #fff; /* Ensure background is white */
+.signup-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .readonly-input {
-  background-color: #e0e0e0; /* Darker gray for better contrast */
-  color: #111; /* Black text for readonly input */
+  background: rgba(0, 0, 0, 0.2);
   cursor: not-allowed;
 }
 
-.form-buttons {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.signup-button,
-.back-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
+/* Sign up button */
 .signup-button {
-  background-color: #007bff;
-  color: white;
+  position: static;
+  width: 305px;
+  height: 46px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  flex: none;
+  order: undefined;
+  flex-grow: 0;
+  margin: 20px 0px;
+  font-family: 'SF Pro', sans-serif;
+  border-radius: 100px;
+  background: rgb(0, 122, 255);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }
 
 .signup-button:hover {
-  background-color: #0056b3;
+  background-color: #155a8a;
 }
 
+.signup-button:active {
+  background-color: #104c72;
+}
+
+/* Back button */
 .back-button {
-  background-color: #6c757d;
-  color: white;
+  position: static;
+  width: 305px;
+  height: 46px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  flex: none;
+  order: undefined;
+  flex-grow: 0;
+
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }
 
 .back-button:hover {
-  background-color: #5a6268;
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.back-button:active {
+  background-color: #155a8a;
 }

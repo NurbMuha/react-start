@@ -2,8 +2,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%; /* Устанавливаем высоту 100% */
-    overflow: auto; /* Включаем прокрутку */
+    height: 100%;
+    overflow: auto;
 }
 
 .background-container {
@@ -15,9 +15,10 @@ html, body {
     background-image: url("../Images/bg.png");
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Фиксируем фон */
+    background-attachment: fixed;
     overflow-y: auto;
     overflow-x: hidden;
+    position: fixed;
 }
 
 /* Стили для контейнера с постами */
@@ -33,41 +34,49 @@ html, body {
 
 /* Стили для каждой карточки поста */
 .post-card {
-    width: 869px;
+    width: 669px;
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    border-radius: 32px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 869px;
-    margin: 10px auto; /* Центрируем карточки */
+    margin: 10px auto;
     backdrop-filter: blur(100px);
     border: 2px solid rgba(255, 255, 255, .2);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 16;
+    gap: 16px;
     padding: 24px;
 }
 
 /* Стили для заголовков постов */
 .post-card h3 {
     margin: 0;
-    font-size: 18px;
+    font-size: 24px;
     color: rgb(255, 255, 255);
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 /* Стили для текста постов */
 .post-card p {
     margin: 8px 0;
     color: #ffffff;
-    font-size: 16px; /* Уменьшаем размер текста для лучшей читаемости */
+    font-size: 16px;
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 /* Стили для даты */
 .post-card span {
-    font-size: 12px;
-    color: #808080;
+    color: rgb(255, 255, 255);
+    font-family: 'SF Pro Display', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: left;
 }
+
 .post-meta {
     display: flex;
     justify-content: space-between;
@@ -82,116 +91,246 @@ html, body {
 }
 
 .post-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 .post-user-info {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    color: rgb(255, 255, 255);
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 .post-user-info .author {
-  font-weight: 600;
-  font-size: 14px;
-  color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
 }
 
 .post-user-info .date {
-  font-size: 12px;
-  color: #ffffff;
+    font-size: 12px;
+    color: #ffffff;
+    opacity: 0.4;
 }
 
 .post-card-image {
     max-width: 100%;
-    min-width: 200px;
-    max-height: 500px;
+    min-width: 669px;
+    max-height: 869px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 16px;
     margin-top: 10px;
 }
-/* Home.css */
+
+/* Стили для контейнера с кнопками действий */
+.post-actions {
+    display: flex;
+    justify-content: space-between; /* Space between left and right actions */
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Контейнер для лайка и редактирования (слева) */
+.left-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Gap between like and edit buttons */
+}
+
+/* Стили для контейнера лайков */
 .like-container {
-  display: flex;
-  align-items: center;
-  gap: 20px; /* Adjust the gap between the buttons */
-  margin-top: 10px;
-  justify-content: flex-start; /* Ensures buttons stay in one row */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 .like-container button {
-  background-color: transparent;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.3);
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px;
+    margin: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.like-container button.liked {
+    color: #ff4d4d;
+}
+
+.like-container button:hover {
+    background-color: rgba(30, 115, 190, 0.5);
+}
+
+.like-container button:active {
+    background-color: rgba(21, 90, 138, 0.7);
 }
 
 .like-container span {
-  font-size: 1rem;
-  color: white;
-}
-
-.delete-container {
-  display: flex;
-  align-items: center;
-  gap: 20px; /* Adjust gap if needed */
-  justify-content: flex-start; /* Ensures buttons stay in one row */
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'SF Pro Display', sans-serif;
 }
 
 .delete-button {
-  background-color: transparent;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.3);
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px;
+    margin: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
 }
+
+.delete-button:hover {
+    background-color: rgba(30, 115, 190, 0.5);
+}
+
+.delete-button:active {
+    background-color: rgba(21, 90, 138, 0.7);
+}
+
+.edit-button {
+    background-color: rgba(128, 128, 128, 0.3);
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px;
+    margin: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+    background-color: rgba(30, 115, 190, 0.5);
+}
+
+.edit-button:active {
+    background-color: rgba(21, 90, 138, 0.7);
+}
+
+.edit-post-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit-content-input {
+    width: 100%;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+.save-button {
+    background-color: rgba(128, 128, 128, 0.3);
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px;
+    margin: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.save-button:hover {
+    background-color: rgba(0, 128, 0, 0.5);
+}
+
+.save-button:active {
+    background-color: rgba(0, 100, 0, 0.7);
+}
+
+.cancel-button {
+    background-color: rgba(128, 128, 255, 0.3);
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.cancel-button:hover {
+    background-color: rgba(255, 0, 0, 0.5);
+}
+
+.cancel-button:active {
+    background-color: rgba(200, 0, 0, 0.7);
+}
+
+/* Remove unnecessary styles */
+.delete-container {
+    display: none;
+}
+
 input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-size: 1rem;
-  outline: none;
-  box-sizing: border-box;
-  margin-bottom: 20px;
 }
+
 /* Edit icon style */
 button i {
-  font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
-/* Hover effect on buttons */
-button:hover {
-  color: #1e73be;
-}
-
-/* Active effect on buttons */
-button:active {
-  color: #155a8a;
-}
 /* Button style for the edit button */
 button {
-  background-color: transparent;
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  cursor: pointer;
-  margin-top: 10px;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }

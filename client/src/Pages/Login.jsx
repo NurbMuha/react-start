@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../authReducer';
 import { toast } from 'react-toastify';
 import Notification from '../Modal/Notification';
@@ -13,6 +13,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const notifications = useSelector(state => state.notifications.notifications); // Access Redux state
 
   const showNotification = (message, type = 'success') => {
     dispatch({
@@ -36,12 +37,10 @@ function Login() {
       let matchedUser = null;
       for (const u of users) {
         if (u.email === email) {
-          // Try plain text password (e.g., '12345678' from ManageUsers reset)
           if (u.password === password) {
             matchedUser = u;
             break;
           }
-          // Try hashed password (e.g., from JSON)
           try {
             if (await bcrypt.compare(password, u.password)) {
               matchedUser = u;
@@ -49,17 +48,15 @@ function Login() {
             }
           } catch (bcryptError) {
             console.warn(`Invalid hash for user ${u.email}:`, bcryptError);
-            // Continue checking other users
           }
         }
       }
 
       if (matchedUser) {
         const { password, ...userData } = matchedUser;
-        toast.success('Logged in successfully!');
         dispatch(login(userData));
-        showNotification('Login successful!', 'success');
-        setTimeout(() => navigate('/home'), 500);
+        showNotification('Logged in successfully!', 'success');
+        setTimeout(() => navigate('/home'), 2500);
       } else {
         toast.error('Invalid email or password');
       }
@@ -69,36 +66,49 @@ function Login() {
     }
   }
 
+  // Determine if notification is present
+  const hasNotification = notifications.length > 0;
+
   return (
     <div className="login-page">
+      {hasNotification && <div className="overlay"></div>} {/* Render overlay only when notification exists */}
       <Notification />
-      <h1 className="login-header">Login</h1>
-      <form className="login-form" onSubmit={(e) => handleLogin(e)}>
-        <input
-          type="email"
-          className="login-input"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          className="login-input"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit" className="login-button">Login</button>
-      </form>
-      <button
-        type="button"
-        className="signup-button"
-        onClick={() => navigate('/signup')}
-      >
-        Sign Up
-      </button>
+      <div className="login-form">
+        <form onSubmit={handleLogin}>
+          <h2 className="login-header">Sign in</h2>
+          <input
+            type="email"
+            name="email"
+            className="login-input"
+            placeholder="Email or username"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            className="login-input"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <div className="forgot-password-container">
+            <a href="#" className="forgot-password">Forgot your password?</a>
+          </div>
+          <button type="submit" className="login-button">
+            Sign in
+          </button>
+        </form>
+        <button
+          type="button"
+          className="signup-button"
+          onClick={() => navigate('/signup')}
+        >
+          Create new account
+        </button>
+      </div>
     </div>
   );
 }

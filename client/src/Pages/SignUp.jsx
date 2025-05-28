@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TabBar from '../Components/TabBar';
 import { toast } from 'react-toastify';
 import bcrypt from 'bcryptjs';
 import '../Styles/Global.css';
@@ -59,7 +58,7 @@ export default function SignUp() {
       const userData = {
         ...formData,
         password: hashedPassword,
-        avatar: null, // Match JSON structure
+        avatar: null,
       };
 
       const response = await fetch('http://localhost:3001/users', {
@@ -77,7 +76,7 @@ export default function SignUp() {
 
       toast.success('Account created successfully! Please log in.');
       setFormData({ email: '', username: '', password: '', role: 'user', avatar: null });
-      navigate('/login');
+      navigate('/');
     } catch (error) {
       console.error('Error:', error);
       toast.error(error.message || 'An error occurred during sign-up');
@@ -85,65 +84,55 @@ export default function SignUp() {
   };
 
   return (
-    <div className="signup-container">
-      <TabBar />
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit} className="signup-form">
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="role">Role:</label>
-          <input
-            type="text"
-            id="role"
-            name="role"
-            value={formData.role}
-            readOnly
-            className="readonly-input"
-          />
-        </div>
-        <div className="form-buttons">
-          <button type="submit" className="signup-button">Sign Up</button>
-          <button
-            type="button"
-            className="back-button"
-            onClick={() => navigate('/')}
-          >
-            Back
-          </button>
-        </div>
-      </form>
+    <div className="signup-page">
+      <div className="signup-form">
+        <h2 className="signup-header">Sign up</h2>
+        <input
+          type="email"
+          className="signup-input"
+          placeholder="Email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          className="signup-input"
+          placeholder="Username"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          className="signup-input"
+          placeholder="Password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          className="signup-input readonly-input"
+          placeholder="Role"
+          name="role"
+          value={formData.role}
+          readOnly
+        />
+        <button type="submit" className="signup-button" onClick={handleSubmit}>
+          Sign up
+        </button>
+        <button
+          type="button"
+          className="back-button"
+          onClick={() => navigate('/')}
+        >
+          Back to login
+        </button>
+      </div>
     </div>
   );
 }

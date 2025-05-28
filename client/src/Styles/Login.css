@@ -1,60 +1,104 @@
 /* Login.css */
+
 .login-page {
-  background: linear-gradient(to bottom right, #1e3c72, #2a5298); /* Blue gradient */
-  color: white;
-  height: 100vh;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
+  background-image: url("../Images/bg.png");
+  background-size: cover;
+  background-position: center;
+  overflow-y: auto;
+  overflow-x: hidden;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   padding: 20px;
-  position: relative;
+  position: fixed;
+}
+
+.login-form {
+  background-color: rgba(128, 128, 128, 0.3);
+  position: absolute;
+  width: 424px;
+  height: 549px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 40px; /* Adjusted padding to better distribute space */
+  box-sizing: border-box;
+  border-radius: 46px;
+  backdrop-filter: blur(100px);
 }
 
 .login-header {
   font-size: 2rem;
   margin-bottom: 30px;
   text-align: center;
-}
-
-.login-form {
-  background-color: rgba(0, 0, 0, 0.6); /* Slightly transparent background */
-  padding: 40px;
-  border-radius: 20px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 400px;
+  color: #ffffff;
+  font-family: 'SF Pro', sans-serif;
 }
 
 .login-input {
-  width: 100%;
-  padding: 15px;
-  margin-bottom: 20px;
-  background-color: #2b3a4e;
+  position: relative;
+  width: 305px;
+  height: 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 20px;
+  border-radius: 12px;
+  box-shadow: inset 1px 1.5px 4px 0px rgba(0, 0, 0, 0.1), inset 1px 1.5px 4px 0px rgba(0, 0, 0, 0.08), inset 0px -0.5px 1px 0px rgba(255, 255, 255, 0.25), inset 0px -0.5px 1px 0px rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.1), rgba(208, 208, 208, 0.5);
+  color: #ffffff;
   border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 1rem;
   outline: none;
+  margin-bottom: 20px; /* Add spacing between inputs */
 }
 
 .login-input::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.login-button {
-  padding: 15px;
-  background-color: #1e73be;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s;
+/* Forgot password container */
+.forgot-password-container {
   width: 100%;
+  text-align: center;
+  margin-top: 40px; /* Increased spacing above the link */
+  margin-bottom: 20px; /* Spacing below the link */
+}
+
+/* Forgot password link */
+.forgot-password {
+  color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'SF Pro', sans-serif;
+}
+
+/* Login button */
+.login-button {
+  position: static;
+  width: 305px;
+  height: 46px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  flex: none;
+  order: undefined;
+  flex-grow: 0;
+  margin: 0px 0px;
+  font-family: 'SF Pro', sans-serif;
+  border-radius: 100px;
+  background: rgb(0, 122, 255);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }
 
 .login-button:hover {
@@ -65,19 +109,30 @@
   background-color: #104c72;
 }
 
+/* Signup button */
 .signup-button {
-  background-color: transparent;
-  color: white;
-  border: 2px solid white;
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 10px;
+  position: static;
+  width: 305px; /* Adjusted to match login button width */
+  height: 46px; /* Adjusted to match login button height */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  flex: none;
+  order: undefined;
+  flex-grow: 0;
+  margin-top: 20px; /* Reduced margin to bring it closer to the login button */
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  border: none;
   cursor: pointer;
 }
 
 .signup-button:hover {
-  background-color: #1e73be;
-  border-color: #1e73be;
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
 }
 
 .signup-button:active {

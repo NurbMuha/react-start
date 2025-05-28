@@ -102,7 +102,7 @@ function EditPost() {
           const matchedUser = users.find((user) => user.id === post.userId);
           const currentContent = editedContent[post.id] || '';
 
-          // Only show edit controls for user's own posts or if user is admin
+          // Only show edit controls for user's own posts or if user is moderator
           if (user.id !== post.userId && user.role !== 'moderator') {
             return (
               <div key={post.id}>
