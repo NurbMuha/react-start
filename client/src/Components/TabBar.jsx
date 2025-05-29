@@ -68,7 +68,7 @@ function TabBar() {
       <div className="tab-item" onClick={handleLogout}>
         <Link to="/login">
           <i className="fas fa-user"></i>
-          <span>Profile</span>
+          <span>LogOut</span>
         </Link>
       </div>
     </div>
