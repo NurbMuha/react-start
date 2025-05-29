@@ -88,7 +88,6 @@ function Chats() {
       const savedMessage = await response.json();
       setMessages((prevMessages) => [...prevMessages, savedMessage]);
       setNewMessage('');
-      toast.success('Message sent successfully!');
     } catch (error) {
       console.error('Error sending message:', error);
       toast.error('Failed to send message');

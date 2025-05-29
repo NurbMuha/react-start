@@ -23,17 +23,10 @@ function AddPost() {
         toast.error('Please select an image file');
         return;
       }
-      if (file.size > 5 * 1024 * 1024) {
-        toast.error('Image size must be less than 5MB');
-        return;
-      }
       setMedia(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setBase64Image(reader.result);
-      };
-      reader.onerror = () => {
-        toast.error('Failed to read image file');
       };
       reader.readAsDataURL(file);
     }
@@ -42,12 +35,6 @@ function AddPost() {
   const handleAddPost = async () => {
     if (!content || !title) {
       toast.warn('Please fill in title and content');
-      return;
-    }
-
-    if (!user || !user.id) {
-      toast.warn('You must be logged in to create a post');
-      navigate('/login');
       return;
     }
 
@@ -100,6 +87,11 @@ function AddPost() {
           </div>
         </div>
         <div className="add-post-textarea">
+          {base64Image && (
+            <div className="image-preview">
+              <img src={base64Image} alt="Preview" />
+            </div>
+          )}
           <input
             type="text"
             placeholder="Title"
@@ -113,11 +105,6 @@ function AddPost() {
             onChange={(e) => setContent(e.target.value)}
             required
           />
-          {base64Image && (
-            <div className="image-preview">
-              <img src={base64Image} alt="Preview" />
-            </div>
-          )}
         </div>
         <div className="add-post-file">
           <input

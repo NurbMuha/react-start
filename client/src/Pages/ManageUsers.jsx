@@ -12,23 +12,6 @@ function ManageUsers() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    if (!user) {
-      toast.warn('You must be logged in to manage users');
-      navigate('/login');
-      return;
-    }
-
-    if (user.role !== 'admin' && user.role !== 'moderator') {
-      toast.error('Only admins and moderators can manage users');
-      navigate('/home');
-      return;
-    }
-
-    if (user.role === 'ban') {
-      toast.error('You are banned and cannot manage users');
-      navigate('/home');
-      return;
-    }
 
     const fetchUsers = async () => {
       try {

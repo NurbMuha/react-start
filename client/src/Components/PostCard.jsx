@@ -67,7 +67,7 @@ export default function PostCard({ post, author, date, onDelete, onLike, likes, 
             <button
               type="button"
               onClick={onLike}
-              className={`like-button ${isLiked ? 'liked' : ''}`}
+              className={`like-button ${isLiked }`}
             >
               {isLiked ? (
                 <i className="fas fa-heart"></i>
@@ -75,7 +75,7 @@ export default function PostCard({ post, author, date, onDelete, onLike, likes, 
                 <i className="far fa-heart"></i>
               )}
             </button>
-            <span>{likes?.filter(like => like.post_id === post.id).length} Likes</span> {/* Added optional chaining */}
+            <span>{likes?.filter(like => like.post_id === post.id).length}</span>
           </div>
           {canEdit && (
             <button

@@ -125,7 +125,6 @@ export default function Home() {
     return likes.filter(like => like.post_id === postId).length;
   };
 
-  // Format the date to show only date and time (hours:minutes)
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
     return date.toLocaleString('en-US', {
@@ -134,8 +133,8 @@ export default function Home() {
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-      hour12: false, // Use 24-hour format
-    }).replace(/,/, ''); // Remove the comma between date and time
+      hour12: false, 
+    }).replace(/,/, '');
   };
 
   return (
@@ -145,7 +144,7 @@ export default function Home() {
         {posts.map(post => {
           const matchedUser = users.find(user => user.id === post.userId);
           const likeCount = getLikeCount(post.id);
-          const formattedDate = formatDate(post.created_at); // Format the date
+          const formattedDate = formatDate(post.created_at);
 
           return (
             <div key={post.id}>
@@ -156,8 +155,8 @@ export default function Home() {
                 onDelete={() => handleDeletePost(post.id)}
                 onEdit={() => console.log("Edit post", post.id)}
                 onLike={() => handleLikePost(post.id)}
-                likes={likes} // Pass likes state to PostCard
-                user={user} // Pass user state to PostCard
+                likes={likes} 
+                user={user}
               />
             </div>
           );

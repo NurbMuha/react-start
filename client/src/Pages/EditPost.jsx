@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import TabBar from '../Components/TabBar';
 import PostCard from '../Components/PostCard';
-import '../Styles/Home.css'; // Reuse Home.css for consistent design
+import '../Styles/Home.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,7 +18,7 @@ function EditPost() {
   useEffect(() => {
     if (!user) {
       toast.warn('You must be logged in to edit posts');
-      navigate('/login');
+      navigate('/');
       return;
     }
 
@@ -70,19 +70,9 @@ function EditPost() {
       return;
     }
 
-    if (user.role === 'ban') {
-      toast.error('You are banned and cannot edit posts');
-      return;
-    }
-
     const post = posts.find((p) => p.id === postId);
     if (!post) {
       toast.error('Post not found');
-      return;
-    }
-
-    if (user.id !== post.userId && user.role !== 'admin' && user.role !== 'moderator') {
-      toast.error('You can only edit your own posts or as an admin/moderator');
       return;
     }
 
@@ -100,10 +90,9 @@ function EditPost() {
       setPosts((prevPosts) =>
         prevPosts.map((p) => (p.id === updatedPost.id ? updatedPost : p))
       );
-      setEditedContent((prev) => ({ ...prev, [postId]: '' })); // Clear input
+      setEditedContent((prev) => ({ ...prev, [postId]: '' }));
       toast.success('Post updated successfully!');
     } catch (error) {
-      console.error(`Error updating post with ID: ${postId}`, error);
       toast.error('Failed to update post');
     }
   };

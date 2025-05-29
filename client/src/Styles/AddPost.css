@@ -102,7 +102,7 @@
 }
 
 .add-post-textarea input {
-  width: 100%;
+  width: 95%;
   height: 40px;
   padding: 10px 16px;
   margin-bottom: 12px;
@@ -127,7 +127,7 @@
 }
 
 .add-post-textarea textarea {
-  width: 100%;
+  width: 95%;
   height: 100px;
   padding: 10px 16px;
   border-radius: 10px;
@@ -191,9 +191,9 @@
 .image-preview {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   margin-top: 12px;
-  margin-bottom: 64px; /* Increased to ensure separation from upload button */
+  margin-bottom: 34px; /* Increased to ensure separation from upload button */
 }
 
 .image-preview img {

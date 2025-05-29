@@ -24,12 +24,10 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!formData.email || !formData.username || !formData.password) {
       toast.error('Please fill in all required fields');
       return;
     }
-
     if (formData.password.length < 8) {
       toast.error('Password must be at least 8 characters long');
       return;
@@ -40,21 +38,16 @@ export default function SignUp() {
       const usersResponse = await fetch('http://localhost:3001/users');
       if (!usersResponse.ok) throw new Error('Failed to fetch users');
       const users = await usersResponse.json();
-
       if (users.some((u) => u.email === formData.email)) {
         toast.error('Email already exists');
         return;
       }
-
       if (users.some((u) => u.username === formData.username)) {
         toast.error('Username already exists');
         return;
       }
 
-      // Hash the password
       const hashedPassword = await bcrypt.hash(formData.password, 10);
-
-      // Prepare user data for JSON structure
       const userData = {
         ...formData,
         password: hashedPassword,
@@ -73,13 +66,9 @@ export default function SignUp() {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to add user to database');
       }
-
-      // Get all users again to create conversations
       const allUsersResponse = await fetch('http://localhost:3001/users');
       const allUsers = await allUsersResponse.json();
       const newUser = allUsers.find(u => u.email === formData.email);
-
-      // Create conversations with each existing user
       for (const existingUser of allUsers) {
         if (existingUser.id !== newUser.id) {
           const conversation = {

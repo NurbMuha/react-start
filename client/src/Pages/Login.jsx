@@ -13,7 +13,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const notifications = useSelector(state => state.notifications.notifications); // Access Redux state
+  const notifications = useSelector(state => state.notifications.notifications); 
 
   const showNotification = (message, type = 'success') => {
     dispatch({
@@ -66,12 +66,12 @@ function Login() {
     }
   }
 
-  // Determine if notification is present
+  
   const hasNotification = notifications.length > 0;
 
   return (
     <div className="login-page">
-      {hasNotification && <div className="overlay"></div>} {/* Render overlay only when notification exists */}
+      {hasNotification && <div className="overlay"></div>} 
       <Notification />
       <div className="login-form">
         <form onSubmit={handleLogin}>
