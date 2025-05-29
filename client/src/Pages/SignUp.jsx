@@ -74,6 +74,29 @@ export default function SignUp() {
         throw new Error(errorData.message || 'Failed to add user to database');
       }
 
+      // Get all users again to create conversations
+      const allUsersResponse = await fetch('http://localhost:3001/users');
+      const allUsers = await allUsersResponse.json();
+      const newUser = allUsers.find(u => u.email === formData.email);
+
+      // Create conversations with each existing user
+      for (const existingUser of allUsers) {
+        if (existingUser.id !== newUser.id) {
+          const conversation = {
+            participants: [newUser.id, existingUser.id],
+            participantNames: [newUser.username, existingUser.username],
+          };
+
+          await fetch('http://localhost:3001/conversations', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(conversation),
+          });
+        }
+      }
+
       toast.success('Account created successfully! Please log in.');
       setFormData({ email: '', username: '', password: '', role: 'user', avatar: null });
       navigate('/');

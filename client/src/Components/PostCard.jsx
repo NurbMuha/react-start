@@ -16,12 +16,18 @@ export default function PostCard({ post, author, date, onDelete, onLike, likes, 
   };
 
   const handleSaveEdit = () => {
-    handleEditPost(post.id);
+    if (typeof handleEditPost === 'function') {
+      handleEditPost(post.id);
+    } else {
+      console.error('handleEditPost is not a function');
+    }
     setIsEditing(false);
   };
 
   const handleCancelEdit = () => {
-    setEditedContent(prev => ({ ...prev, [post.id]: '' }));
+    if (typeof setEditedContent === 'function') {
+      setEditedContent(prev => ({ ...prev, [post.id]: '' }));
+    }
     setIsEditing(false);
   };
 
@@ -93,7 +99,11 @@ export default function PostCard({ post, author, date, onDelete, onLike, likes, 
         <div className="edit-post-controls">
           <input
             value={editedContent}
-            onChange={(e) => setEditedContent(prev => ({ ...prev, [post.id]: e.target.value }))}
+            onChange={(e) => {
+              if (typeof setEditedContent === 'function') {
+                setEditedContent(prev => ({ ...prev, [post.id]: e.target.value }));
+              }
+            }}
             placeholder="Edit content here"
             className="edit-content-input"
           />

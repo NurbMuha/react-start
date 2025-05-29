@@ -27,7 +27,7 @@ function TabBar() {
       {user && user.role !== 'ban' && (
         <>
           {/* Edit Posts - Available to admins and moderators */}
-          {user.role === 'noone' && (
+          {user.role === 'moderator' && (
             <div className="tab-item">
               <Link to="/edit-post">
                 <i className="fas fa-edit"></i>
